@@ -1,0 +1,8 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+@{
+    Layout = "LoginMaster.cshtml";
+    //var memberShipHelper = new Umbraco.Web.Security.MembershipHelper(UmbracoContext.Current);
+}
+    @Html.Action("ShowLoginForm", "Login")
+Include html here(login.html)
