@@ -259,3 +259,34 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+Demo.Web/[Bb]in/*
+Demo.Core/[Bb]in/*
+Demo.Infrastructure/[Bb]in/*
+
+# =========================
+# Umbraco
+# =========================
+Demo.Web/App_Data/umbraco.config
+Demo.Web/App_Data/preview/*.config
+Demo.Web/App_Data/TEMP/ClientDependency/
+Demo.Web/App_Data/ClientDependency/
+Demo.Web/App_Data/TEMP/ExamineIndexes/
+Demo.Web/App_Data/ExamineIndexes/
+Demo.Web/App_Data/TEMP/PluginCache/*
+Demo.Web/App_Data/TEMP/SEOChecker/
+Demo.Web/App_Data/Logs/*
+Demo.Web/App_Data/TEMP/Razor/
+Demo.Web/App_Data/FeedCache/
+Demo.Web/App_Data/courier/revisions/
+Demo.Web/App_Data/courier/cache/*
+Demo.Web/App_Data/umbraco.licensing.log.txt
+Demo.Web/aspnet_client/
+Demo.Web/App_Data/*.udt
+Demo.Web/App_Data/NuGetBackup/*
+
+# =========================
+# ImageProcessor DiskCache 
+# =========================
+Demo.Web/App_Data/cache/*
+Demo.Web/Media/***/Cached/*
