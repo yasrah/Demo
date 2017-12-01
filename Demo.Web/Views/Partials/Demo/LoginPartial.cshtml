@@ -11,7 +11,7 @@
             <div class="panel-body">
                 @using (Html.BeginUmbracoForm<LoginController>("Login"))
                 {
-                    @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken() // Security
                     <fieldset>
                         <div class="form-group">
                             @Html.TextBoxFor(m => m.Email, new { placeholder = "Epost", @class = "form-control" })

@@ -316,6 +316,8 @@
     <Content Include="Views\LoginPage.cshtml" />
     <Content Include="Views\LoginMaster.cshtml" />
     <Content Include="Views\Partials\Demo\LoginPartial.cshtml" />
+    <Content Include="Views\MyPage.cshtml" />
+    <Content Include="Views\Partials\Demo\MyPagePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -448,6 +450,7 @@
   <ItemGroup>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MyPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
