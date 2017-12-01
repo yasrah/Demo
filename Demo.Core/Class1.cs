@@ -8,5 +8,9 @@ namespace Demo.Core
 {
     public class Class1
     {
+        //test
+        public int MyProperty { get; set; }
+        public int MyProperty2 { get; set; }
+
     }
 } 
