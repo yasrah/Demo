@@ -38,15 +38,5 @@ namespace Demo.Web.Controllers
             FormsAuthentication.SignOut();
             return Redirect("/");
         }
-
-        public ActionResult ShowMyPage()
-        {
-            //var loggedIn = User.Identity.IsAuthenticated;
-            //if (!loggedIn)
-            //{
-            //    return PartialView("~/Views/Partials/Demo/NoAccess.cshtml");
-            //}
-            return PartialView("~/Views/Partials/Demo/MyPagePartial.cshtml", new MyPageViewModel());
-        }
     }
 }

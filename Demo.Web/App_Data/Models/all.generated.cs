@@ -8,7 +8,7 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "86de93cd370aac3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "86aeca772d12980b")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
@@ -139,6 +139,32 @@ namespace Umbraco.Web.PublishedContentModels
 #pragma warning restore 0109
 
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MyPage, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>EditMyPage</summary>
+	[PublishedContentModel("editMyPage")]
+	public partial class EditMyPage : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "editMyPage";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public EditMyPage(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<EditMyPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
@@ -326,6 +352,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Member, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Adresse
+		///</summary>
+		[ImplementPropertyType("address")]
+		public string Address
+		{
+			get { return this.GetPropertyValue<string>("address"); }
+		}
+
+		///<summary>
+		/// Kontaktperson
+		///</summary>
+		[ImplementPropertyType("contactPerson")]
+		public string ContactPerson
+		{
+			get { return this.GetPropertyValue<string>("contactPerson"); }
+		}
+
+		///<summary>
+		/// Fronavn
+		///</summary>
+		[ImplementPropertyType("firstName")]
+		public string FirstName
+		{
+			get { return this.GetPropertyValue<string>("firstName"); }
+		}
+
+		///<summary>
+		/// Etternavn
+		///</summary>
+		[ImplementPropertyType("lastName")]
+		public string LastName
+		{
+			get { return this.GetPropertyValue<string>("lastName"); }
 		}
 
 		///<summary>

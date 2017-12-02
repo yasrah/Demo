@@ -233,6 +233,30 @@
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
+    <Content Include="CSS\AngularLoadingBar\loading-bar.css" />
+    <Content Include="CSS\AngularLoadingBar\loading-bar.min.css" />
+    <Content Include="CSS\jquery.typeahead.min.css" />
+    <Content Include="CSS\umbraco-starterkit-style.css" />
+    <Content Include="Custom_CSS\style.css" />
+    <Content Include="JS\Angular\app.js" />
+    <Content Include="JS\Angular\ChartController.js" />
+    <Content Include="JS\Angular\ChartFactory.js" />
+    <Content Include="JS\Angular\ComplaintReportController.js" />
+    <Content Include="JS\Angular\ComplaintReportEditController.js" />
+    <Content Include="JS\Angular\ComplaintReportEditFactory.js" />
+    <Content Include="JS\Angular\ComplaintReportFactory.js" />
+    <Content Include="JS\Angular\ComplaintReportNewController.js" />
+    <Content Include="JS\Angular\ComplaintReportShowController.js" />
+    <Content Include="JS\Angular\ComplaintReportShowFactory.js" />
+    <Content Include="JS\Angular\DealerController.js" />
+    <Content Include="JS\Angular\DealerFactory.js" />
+    <Content Include="JS\Angular\MyPageController.js" />
+    <Content Include="JS\Angular\MyPageFactory.js" />
+    <Content Include="JS\Angular\ReportController.js" />
+    <Content Include="JS\Angular\ReportFactory.js" />
+    <Content Include="JS\AngularLoadingBar\loading-bar.js" />
+    <Content Include="JS\AngularLoadingBar\loading-bar.min.js" />
+    <Content Include="JS\TypeAhead\jquery.typeahead.min.js" />
     <Content Include="Media\Web.config" />
     <Content Include="config\umbracoSettings.config" />
     <Content Include="config\trees.config" />
@@ -318,6 +342,8 @@
     <Content Include="Views\Partials\Demo\LoginPartial.cshtml" />
     <Content Include="Views\MyPage.cshtml" />
     <Content Include="Views\Partials\Demo\MyPagePartial.cshtml" />
+    <Content Include="Views\EditMyPage.cshtml" />
+    <Content Include="Views\Partials\Demo\EditMyPagePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -448,9 +474,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\MyPageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\MyPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +489,7 @@
       <Name>Demo.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

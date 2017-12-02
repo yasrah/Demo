@@ -1,0 +1,61 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@Model.Content.Name</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Rediger min side
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <form role="form" id="contact" ng-controller="MyPageController" ng-submit="submit()" novalidate ng-cloak>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="Id">Id</label>
+                                    <input class="form-control" ng-model="myPageData.Id" id="Id" type="text" placeholder="Disabled input" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">Name</label>
+                                    <input class="form-control" ng-model="myPageData.Name" id="Name" type="text" placeholder="Name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">Login</label>
+                                    <input class="form-control" ng-model="myPageData.Login" id="Login" type="text" placeholder="Name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">MemberType</label>
+                                    <input class="form-control" ng-model="myPageData.MemberType" id="MemberType" type="text" placeholder="Name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">MemberGroup</label>
+                                    <input class="form-control" ng-model="myPageData.MemberGroup" id="MemberType" type="text" placeholder="Name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name">FirstName</label>
+                                    <input class="form-control" ng-model="myPageData.FirstName" id="FirstName" type="text" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="LastName">LastName</label>
+                                    <input class="form-control" ng-model="myPageData.LastName" id="LastName" type="text" placeholder="LastName">
+                                </div>
+                                <button type="submit" class="btn btn-success">Lagre</button>
+                                <p class="alert-danger">{{error}}</p>
+                                <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    Min side er oppdatert!
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
