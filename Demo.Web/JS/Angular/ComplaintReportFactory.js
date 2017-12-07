@@ -26,20 +26,20 @@
             });
         },
         NewComplaintReport: function (data) {
-            return $http.post("/umbraco/api/dealer/newcomplaintreport", data);
+            return $http.post("/umbraco/api/complaintreportapi/newcomplaintreport", data);
         },
         GetMyPageData: function () {
-            return $http.get("/umbraco/api/dealer/getmypagedata").then(function (response) {
+            return $http.get("/umbraco/api/mypageapi/getmypagedata").then(function (response) {
                 return response;
             });
         },
         GetProducts: function () {
-            return $http.get("/umbraco/api/dealer/getproducts").then(function (response) {
+            return $http.get("/umbraco/api/complaintreportapi/getproducts").then(function (response) {
                 return response;
             });
         },
         GetProductModels: function (productId) {
-            return $http.get("/umbraco/api/dealer/getproductmodels?productId=" + productId).then(function (response) {
+            return $http.get("/umbraco/api/complaintreportapi/getproductmodels?productId=" + productId).then(function (response) {
                 return response;
             });
         },

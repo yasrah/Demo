@@ -152,4 +152,31 @@
     //        }
     //    });
     //};
+    
+
+    $(document).ready(function () {
+        //TypeAhead
+        
+        $.typeahead({
+            input: '.js-typeahead-country_v1',
+            order: "desc",
+            source: {
+                ajax: {
+                    url: "http://local.demo.no/Umbraco/Api/ComplaintReportApi/GetAllCustomersName/",
+                }
+            },
+            callback: {
+                onInit: function (node) {
+                    alert("oninit");
+                    console.log('Typeahead Initiated on ' + node.selector);
+
+                },
+                onClickBefore: function () {
+                    alert("onClickBefore");
+
+                }
+            }
+        });
+        // TypeAhead End
+    });
 }]);

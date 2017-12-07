@@ -58,15 +58,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ComplaintReportApiController.cs" />
     <Compile Include="API\MyPageApiController.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Constants\Node.cs" />
-    <Compile Include="Constants\PageNames.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Context\DealerNetworkContext.cs" />
+    <Compile Include="Migrations\201712021120451_InitialMigration.cs" />
+    <Compile Include="Migrations\201712021120451_InitialMigration.Designer.cs">
+      <DependentUpon>201712021120451_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712041742364_JegLaTilTest.cs" />
+    <Compile Include="Migrations\201712041742364_JegLaTilTest.Designer.cs">
+      <DependentUpon>201712041742364_JegLaTilTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061921159_AddPart.cs" />
+    <Compile Include="Migrations\201712061921159_AddPart.Designer.cs">
+      <DependentUpon>201712061921159_AddPart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061957429_AddComplaintReportParts.cs" />
+    <Compile Include="Migrations\201712061957429_AddComplaintReportParts.Designer.cs">
+      <DependentUpon>201712061957429_AddComplaintReportParts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\LeftMenuViewModel.cs" />
     <Compile Include="Models\MyPageViewModel.cs" />
+    <Compile Include="Models\NewComplaintReportViewModel.cs" />
+    <Compile Include="Models\PartViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\LoginRepository.cs" />
+    <Compile Include="Repositories\ComplaintReportRepository.cs" />
+    <Compile Include="Repositories\MemberRepository.cs" />
     <Compile Include="Repositories\MyPageRepository.cs" />
     <Compile Include="Repositories\SiteRepository.cs" />
   </ItemGroup>
@@ -76,6 +97,26 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.Core\Demo.Core.csproj">
+      <Project>{B4B8FA9F-DC88-425B-9148-3180C4587FCB}</Project>
+      <Name>Demo.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712021120451_InitialMigration.resx">
+      <DependentUpon>201712021120451_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712041742364_JegLaTilTest.resx">
+      <DependentUpon>201712041742364_JegLaTilTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061921159_AddPart.resx">
+      <DependentUpon>201712061921159_AddPart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061957429_AddComplaintReportParts.resx">
+      <DependentUpon>201712061957429_AddComplaintReportParts.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,38 @@
+﻿@using Demo.Web.Controllers;
+@model Demo.Web.Models.LeftMenuViewModel
+
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+            <li>
+                <a href="@Model.Url"><i class="fa fa-dashboard fa-fw"></i> @Model.Name</a>
+            </li>
+            @foreach (var item in Model.SubPages.Where(i => i.Hidden == false))
+            {
+                if (item.Show)
+                {
+                    <li>
+                        @if (item.SubPages.Where(i => i.Hidden == false).Any())
+                    {
+                            <a href="@item.Url"><i class="fa @item.Icon fa-fw"></i><span class="fa arrow"></span> @item.Name</a>
+                            <ul class="nav nav-second-level">
+                                @foreach (var i in item.SubPages.Where(i => i.Hidden == false))
+                                {
+                                    <li>
+                                        <a href="@i.Url">@i.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <a href="@item.Url"><i class="fa @item.Icon fa-fw"></i> @item.Name</a>
+                        }
+                    </li>
+                }
+
+            }
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

@@ -236,6 +236,7 @@
     <Content Include="CSS\AngularLoadingBar\loading-bar.css" />
     <Content Include="CSS\AngularLoadingBar\loading-bar.min.css" />
     <Content Include="CSS\jquery.typeahead.min.css" />
+    <Content Include="CSS\UiBootstrap\ui-bootstrap-2.5.0-csp.css" />
     <Content Include="CSS\umbraco-starterkit-style.css" />
     <Content Include="Custom_CSS\style.css" />
     <Content Include="JS\Angular\app.js" />
@@ -245,7 +246,7 @@
     <Content Include="JS\Angular\ComplaintReportEditController.js" />
     <Content Include="JS\Angular\ComplaintReportEditFactory.js" />
     <Content Include="JS\Angular\ComplaintReportFactory.js" />
-    <Content Include="JS\Angular\ComplaintReportNewController.js" />
+    <Content Include="JS\Angular\NewComplaintReportController.js" />
     <Content Include="JS\Angular\ComplaintReportShowController.js" />
     <Content Include="JS\Angular\ComplaintReportShowFactory.js" />
     <Content Include="JS\Angular\DealerController.js" />
@@ -257,6 +258,8 @@
     <Content Include="JS\AngularLoadingBar\loading-bar.js" />
     <Content Include="JS\AngularLoadingBar\loading-bar.min.js" />
     <Content Include="JS\TypeAhead\jquery.typeahead.min.js" />
+    <Content Include="JS\UiBootstrap\ui-bootstrap-2.5.0.min.js" />
+    <Content Include="JS\UiBootstrap\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Media\Web.config" />
     <Content Include="config\umbracoSettings.config" />
     <Content Include="config\trees.config" />
@@ -344,6 +347,11 @@
     <Content Include="Views\Partials\Demo\MyPagePartial.cshtml" />
     <Content Include="Views\EditMyPage.cshtml" />
     <Content Include="Views\Partials\Demo\EditMyPagePartial.cshtml" />
+    <Content Include="Views\DashboardComplaintReports.cshtml" />
+    <Content Include="Views\Partials\Demo\LeftMenuPartial.cshtml" />
+    <Content Include="Views\NewComplaintReport.cshtml" />
+    <Content Include="Views\SearchComplaintReportsPage.cshtml" />
+    <Content Include="Views\Partials\Demo\NewComplaintReportPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -474,6 +482,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ComplaintReportController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\MyPageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Models\LoginViewModel.cs" />

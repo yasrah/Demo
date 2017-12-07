@@ -25,12 +25,16 @@ namespace Demo.API
         readonly DealerNetworkContext ctx = new DealerNetworkContext();
         readonly MyPageRepository myPageRepo = new MyPageRepository();
 
+        //http://local.demo.no/umbraco/api/mypageapi/getmypagedata
         public MyPageViewModel GetMyPageData()
         {
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
             var currentMember = myPageRepo.GetCurrentMember();
-            return new MyPageViewModel(currentMember);
+            var obj = new MyPageViewModel(currentMember);
+            return obj; // obj -> json
         }
+
+        ///umbraco/api/mypageapi/updatemypagedata + data(json -> obj)
         public MyPageViewModel UpdateMyPageData(MyPageViewModel model)
         {
             var myPageData = myPageRepo.UpdateMyPageData(model);

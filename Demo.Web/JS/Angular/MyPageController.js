@@ -4,6 +4,8 @@
     $scope.debug = "tata";
     $scope.error = null;
     $scope.success = false;
+    $scope.myPageData = null;
+
     MyPageFactory.GetMyPageData().then(function (response) {
         $scope.myPageData = response.data;
     });

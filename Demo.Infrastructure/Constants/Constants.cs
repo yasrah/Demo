@@ -11,6 +11,12 @@ namespace Demo.Infrastructure.Constants
         public const int MyPageId = 1152;
         public const int MyPageEditPageId = 1152;
         public const int ForhandlernettPageId = 1157;
-        public const int DealerHomeId = 1157;
+        public const int DealerHomeId = 1054;
+    }
+    public static class PageNames
+    {
+        public const string DealerHome = "dealerHome";
+        public const string ComplaintReport = "complaintReports";
+        public const string Purchase = "purchase";
     }
 }

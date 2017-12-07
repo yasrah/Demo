@@ -1,4 +1,4 @@
-﻿app.controller("ComplaintReportNewController", ["$scope", "$http", "$window", "$timeout", "ComplaintReportFactory", function ($scope, $http, $window, $timeout, ComplaintReportFactory) {
+﻿app.controller("NewComplaintReportController", ["$scope", "$http", "$window", "$timeout", "ComplaintReportFactory", function ($scope, $http, $window, $timeout, ComplaintReportFactory) {
 
     // Debug
     $scope.error = null;
@@ -11,6 +11,60 @@
     $scope.wizard = {
         currentStep: 1,
     };
+
+   
+    $scope.onSelect = function (part) {
+        $scope.newComplaintReport.Parts.push(part);
+    }
+    $scope.removePart = function (part) {
+        var partIndex = $scope.newComplaintReport.Parts.indexOf(part);
+        $scope.newComplaintReport.Parts.splice(partIndex, 1);
+    }
+
+    $scope.getTotalSum = function () {
+        var sum = 0;
+        angular.forEach($scope.newComplaintReport.Parts, function (part) {
+            sum = sum + part.Price * part.Amount;
+        });
+        return sum;
+    }
+
+    $scope.selectedCustomer = null;
+    $scope.isCustomerFieldsChanged = false;
+    $scope.existingCustomerSelected = false;
+
+    $scope.customerFieldsChanged = function () {
+        $scope.isCustomerFieldsChanged = true;
+    }
+    $scope.asyncSelected = null;
+    $scope.customers = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+
+    //$scope.getLocation = function (val) {
+    //    return $http.get('http://local.demo.no/Umbraco/Api/complaintreportapi/GetAllCustomersName', {
+    //        params: {
+    //            query: val,
+    //            sensor: false
+    //        }
+    //    }).then(function (response) {
+    //        return response.data.map(function (item) {
+    //            return item;
+    //        });
+    //    });
+    //};
+
+    $scope.getParts = function (query) {
+        return $http.get('http://local.demo.no/umbraco/api/complaintreportapi/getpartsbyquery', {
+            params: {
+                query: query
+            }
+        }).then(function (response) {
+            return response.data.map(function (item) {
+                return item;
+            });
+        });
+    };
+
     //$scope.products = {};
     //$scope.productModels = {};
     $scope.newComplaintReportId = null;
@@ -37,6 +91,7 @@
         CreateEmail: false,
         Status: null,
         Closed: false,
+        Parts: []
     }
 
 
@@ -150,4 +205,29 @@
     //        }
     //    });
     //};
+
+    $(document).ready(function () {
+        //TypeAhead
+        $.typeahead({
+            input: '.js-typeahead-country_v1',
+            order: "desc",
+            source: {
+                ajax: {
+                    url: "http://local.demo.no/Umbraco/Api/complaintreportapi/GetAllCustomersName",
+                }
+            },
+            callback: {
+                onInit: function (node) {
+                    alert("oninit..");
+                    console.log('Typeahead Initiated on ' + node.selector);
+
+                },
+                onClickBefore: function () {
+                    alert("onClickBefore");
+                    $scope.existingCustomerSelected = true;
+                }
+            }
+        });
+        // TypeAhead End
+    });
 }]);

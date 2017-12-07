@@ -27,7 +27,8 @@ namespace Demo.Infrastructure.Repositories
 
         public MyPageViewModel UpdateMyPageData(MyPageViewModel model)
         {
-            var member = memberService.GetById(model.Id);
+            var m = GetCurrentMember() as Member ;
+            var member = memberService.GetById(m.Id);
 
             if (member == null)
             {
