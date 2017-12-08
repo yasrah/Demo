@@ -3,3 +3,11 @@
 @{
 	Layout = "DealerMaster.cshtml";
 }
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">@Model.Content.Name</h2>
+    </div>
+</div>
+@*@Html.Action("ShowComplaintReports", "ComplaintReport")*@
+
+@Html.Partial("~/Views/Partials/Demo/ComplaintReportsPartial.cshtml")

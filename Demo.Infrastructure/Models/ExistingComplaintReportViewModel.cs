@@ -80,6 +80,7 @@ namespace Demo.Infrastructure
                  });
             Parts = new List<PartViewModel>();
             Parts.AddRange(parts);
+            SentToApproval = c.SentToApproval;
         }
 
         public int ComplaintReportId { get; set; }
@@ -109,5 +110,7 @@ namespace Demo.Infrastructure
         public List<ProductViewModel> Products { get; set; }
         public List<ProductModelViewModel> ProductModels { get; set; }
         public List<PartViewModel> Parts { get; set; }
+        public bool SentToApproval { get; set; }
+
     }
 }

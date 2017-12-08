@@ -139,9 +139,29 @@ namespace Demo.API
 
         public ExistingComplaintReportViewModel GetComplaintReportById(int reportId)
         {
-            return complaintReportRepo.GetComplaintReportById(reportId);
+            //var report = complaintReportRepo.GetComplaintReportById(reportId, memberRepo.IsCurrentMemberAdmin());
+
+            //if (report == null)
+            //{
+
+            //}
+            return complaintReportRepo.GetComplaintReportById(reportId, memberRepo.IsCurrentMemberAdmin());
         }
 
+        [HttpGet]
+        public HttpResponseMessage SendToApproval(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            var updateResult = complaintReportRepo.SendComplaintReportToApproval(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
         public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
         {
             if (!ModelState.IsValid)
@@ -225,6 +245,60 @@ namespace Demo.API
             ctx.SaveChanges();
 
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(updatedReport.ComplaintReportId.ToString()) };
+        }
+
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        public ComplaintReportWrapper GetMyComplaintReport(DataTableViewModel data)
+        {
+            var re = Request
+                    .GetQueryNameValuePairs()
+                    .ToDictionary(x => x.Key, x => x.Value);
+        
+            int page = (data.start / data.length) + 1;
+            int toSkip = (page - 1) * data.length;
+            int tot = 0;
+            int filteredTot = 0;
+
+            var reports = ctx.ComplaintReports
+                .Include(cr => cr.Customer)
+                .Include(cr => cr.ProductModel)
+                .Include(n => n.ProductModel.Product)
+                .Include(n => n.ComplaintReportParts.Select(crp => crp.Part));
+
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                var id = memberRepo.GetCurrentMemberId();
+                reports = reports.Where(r => r.MemberId == id);
+            }
+
+            IEnumerable<ExistingComplaintReportViewModel> reportsViewMOdel = null;
+            if (data.search != null & data.search.value != null & data.search.value != "")
+            {
+                string search = data.search.value;
+
+                reports = reports.Where(
+                    r => r.ComplaintReportId.ToString().Contains(search) ||
+                    r.Customer.Name.Contains(search));
+            }
+            tot = reports.Count();
+            filteredTot = reports.Count();
+            if (toSkip > 0)
+            {
+                reportsViewMOdel = reports.AsEnumerable().Skip(toSkip).Take(data.length).Select(c => new ExistingComplaintReportViewModel(c));
+            }
+            else
+            {
+                if (data.length == -1)
+                {
+                    reportsViewMOdel = reports.AsEnumerable().Select(c => new ExistingComplaintReportViewModel(c));
+                }
+                else
+                {
+                    reportsViewMOdel = reports.AsEnumerable().Take(data.length).Select(c => new ExistingComplaintReportViewModel(c));
+                }
+            }
+            return new ComplaintReportWrapper { data = reportsViewMOdel, recordsTotal = tot, recordsFiltered = filteredTot };
+
         }
     }
 }

@@ -6,12 +6,12 @@
             });
         },
         GetMyComplaintReports: function () {
-            return $http.get("/umbraco/api/dealer/getmycomplaintreport").then(function (response) {
+            return $http.get("/umbraco/api/complaintreportapi/getmycomplaintreport").then(function (response) {
                 return response;
             });
         },
         GetMyComplaintReportsUrl: function () {
-            return "/umbraco/api/dealer/getmycomplaintreport";
+            return "/umbraco/api/ComplaintReportApi/getmycomplaintreport";
         }
 
     }

@@ -389,14 +389,22 @@
                                                 <input type="checkbox" ng-model="complaintReportFormatted.Closed">Ferdigmeld
                                             </label>
                                         </div>
-                                       
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Godkjenning</label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" ng-model="complaintReportFormatted.SentToApproval">Sendt til godkjenning
+                                                </label>
+                                            </div>
+                                        </fieldset>
                                     </fieldset>
                                     <fieldset>
-                                        <button type="submit" class="btn btn-success" ng-if="editing">Lagre</button>
-                                        <button type="button" class="btn btn-warning" ng-click="discardChanges()" ng-if="editing">Forkast endringer</button>
+                                        <button type="submit" class="btn btn-success" ng-if="editing && !complaintReportFormatted.SentToApproval">Lagre</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && !complaintReportFormatted.SentToApproval" ng-click="sendToApproval()">Send til godkjenning</button>
+                                        <button type="button" class="btn btn-warning" ng-click="discardChanges()" ng-if="editing && !complaintReportFormatted.SentToApproval">Forkast endringer</button>
                                         <button type="button" class="btn btn-danger" ng-click="delete()" ng-if="editing">Slett rapport</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
-                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="!editing">Rediger</button>
+                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="!editing && !complaintReportFormatted.SentToApproval">Rediger</button>
                                         <p class="alert-danger">{{error}}</p>
                                         <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

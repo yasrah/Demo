@@ -35,6 +35,7 @@ namespace Demo.Infrastructure.Models
         public bool PartsReturned { get; set; }
         public bool CreateEmail { get; set; }
         public List<PartViewModel> Parts { get; set; }
+        public bool SentToApproval { get; set; }
 
     }
 }

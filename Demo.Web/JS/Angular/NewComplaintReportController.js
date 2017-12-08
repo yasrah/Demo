@@ -91,7 +91,9 @@
         CreateEmail: false,
         Status: null,
         Closed: false,
-        Parts: []
+        Parts: [],
+        SentToApproval: false
+
     }
 
 
@@ -154,7 +156,7 @@
     var ti = function () {
         timer = $timeout(function () {
             alert($scope.newComplaintReportId);
-            $window.location.href = "/reklamasjonsrapporter/vis?id=" + $scope.newComplaintReportId;
+            $window.location.href = "/complaintreports/showcomplaintreport?reportId=" + $scope.newComplaintReportId;
             $scope.success = false;
         }, 3000);
     };

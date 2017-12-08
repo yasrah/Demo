@@ -29,10 +29,29 @@
         $scope.editing = !$scope.editing;
     }
 
-
     $scope.discardChanges = function () {
         $scope.changeEditMode();
         $scope.init($scope.complaintReportFormatted.ComplaintReportId);
+    }
+
+    $scope.sendToApproval = function () {
+        if (window.confirm('Are you sure you want to send to approval this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.SendToApproval($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReportFormatted.SendToApproval = true;
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.delete = function () {
+        if (window.confirm('Are you sure you want to delete this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            alert("TODO: delete this");
+        }
     }
 
 
@@ -63,7 +82,7 @@
     $scope.complaintReport = {
         ComplaintReportId: null,
         Customer: {
-            Customer :null,
+            Customer: null,
             Name: null,
             Address: null,
             CustomerType: null,
@@ -85,6 +104,7 @@
         ProductModels: null,
         Products: null,
         Parts: null,
+        SentToApproval: false
     }
     $scope.ProductChanged = function (id) {
         ComplaintReportFactory.GetProductModels(id).then(
@@ -129,6 +149,7 @@
             SelectedProduct: $scope.complaintReport.SelectedProduct,
             Products: $scope.complaintReport.Products,
             Parts: $scope.complaintReport.Parts,
+            SentToApproval: $scope.complaintReport.SentToApproval,
         }
     }
 
@@ -169,7 +190,7 @@
             if (response.status == 401) {
                 $window.location.href = "/login-gikk galt";
             }
-            else {  
+            else {
                 $scope.error = "Noe gikk galt. Prøv igjen senere!"
             }
         });
@@ -177,9 +198,13 @@
 
     $scope.init = function (reportId) {
         ComplaintReportFactory.GetComplaintReportById(reportId).then(function (data) {
+
+            if (data.data == null || data.data == undefined) {
+                $window.location.href = "/NoAccess";
+            }
             $scope.complaintReport = data.data;
             updateModel();
         });
     };
-    
+
 }]);

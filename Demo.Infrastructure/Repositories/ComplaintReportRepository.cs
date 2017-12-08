@@ -32,13 +32,27 @@ namespace Demo.Infrastructure.Repositories
                 }).ToList();
         }
 
-        public ExistingComplaintReportViewModel GetComplaintReportById(int reportId)
+        public int SendComplaintReportToApproval(int reportId)
+        {
+            var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
+            report.SentToApproval = true;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+        public ExistingComplaintReportViewModel GetComplaintReportById(int reportId, bool isAdmin = false)
         {
             var report = ctx.ComplaintReports
                 .Include(cr => cr.ComplaintReportParts.Select(p => p.Part))
                 .Include(cr => cr.Customer)
                 .Include(cr => cr.ProductModel.Product)
                 .SingleOrDefault(r => r.ComplaintReportId == reportId);
+
+            if (!isAdmin && report.SentToApproval)
+            {
+                return null;
+            }
             var reportViewModel = new ExistingComplaintReportViewModel(report);
 
             var productModel = ctx.ProductModels.Where(pm => pm.ProductModelId == report.ProductModelId).First();

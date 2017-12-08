@@ -22,13 +22,19 @@ namespace Demo.Infrastructure.Repositories
         {
             return memberHelper.GetCurrentMember().Id;
         }
+
         public string[] GetCurrentMembersGroup()
         {
             var memberRoles = System.Web.Security.Roles.GetRolesForUser(GetCurrentMemberName());
             return memberRoles;
         }
-    }
 
+        public bool IsCurrentMemberAdmin()
+        {
+            var memberRoles = System.Web.Security.Roles.GetRolesForUser(GetCurrentMemberName());
+            return memberRoles.Any(r => r.Equals("Forhandlernett Admin"));
+        }
+    }
 }
 
 

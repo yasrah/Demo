@@ -10,7 +10,9 @@ namespace Demo.Core.Models
     public class ComplaintReport
     {
         public ComplaintReport()
-        {}
+        {
+            ComplaintReportParts = new List<ComplaintReportPart>();
+        }
         public int ComplaintReportId { get; set; }
         public string MachineNo1 { get; set; }
         public string MachineNo2 { get; set; }
@@ -33,7 +35,7 @@ namespace Demo.Core.Models
         public bool PartsMarked { get; set; }
         public bool PartsReturned { get; set; }
         public bool CreateEmail { get; set; }
-        public int Test { get; set; }
+        public bool SentToApproval { get; set; }
         public virtual ICollection<ComplaintReportPart> ComplaintReportParts { get; set; }
 
     }

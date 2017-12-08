@@ -416,6 +416,8 @@
     <Content Include="uSync\data\Template\loginmaster\LoginMaster.config" />
     <Content Include="uSync\data\Template\loginpage\LoginPage.config" />
     <Content Include="uSync\data\Template\showcomplaintreport\ShowComplaintReport.config" />
+    <Content Include="Views\NoAccess.cshtml" />
+    <Content Include="Views\Partials\Demo\ComplaintReportsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

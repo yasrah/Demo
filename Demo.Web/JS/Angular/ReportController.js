@@ -35,7 +35,7 @@
     $(document).ready(function () {
         $('#dataTables-example').dataTable({
             ajax: {
-                url: '/umbraco/api/dealer/getmycomplaintreport',
+                url: '/umbraco/api/complaintreportapi/getmycomplaintreport',
                 type: 'POST'
 
             },
@@ -44,7 +44,7 @@
             columns: [
                 {
                     "data": "ComplaintReportId", render: function (data, type, full, meta) {
-                        return '<a href="/reklamasjonsrapporter/vis?id=' + data + '" >' + data + '</a>'
+                        return '<a href="/complaintreports/showcomplaintreport?reportId=' + data + '" >' + data + '</a>'
                     }
                 },
                 {

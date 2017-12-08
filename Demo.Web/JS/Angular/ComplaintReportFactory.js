@@ -51,6 +51,11 @@
         UpdateComplaintReport: function (data) {
             return $http.post("/umbraco/api/complaintreportapi/updatecomplaintreport", data);
         },
+        SendToApproval: function (reportId) {
+            return $http.get("/umbraco/api/complaintreportapi/SendToApproval?reportId=" + reportId).then(function (response) {
+                return response;
+            });
+        },
     }
 }
 ]);
