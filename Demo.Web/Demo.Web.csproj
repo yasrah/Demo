@@ -230,6 +230,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
+    <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
+    <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
+    <Content Include="App_Plugins\uSync\uSyncDashboardService.js" />
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
@@ -246,6 +250,7 @@
     <Content Include="JS\Angular\ComplaintReportEditController.js" />
     <Content Include="JS\Angular\ComplaintReportEditFactory.js" />
     <Content Include="JS\Angular\ComplaintReportFactory.js" />
+    <Content Include="JS\Angular\ShowComplaintReportController.js" />
     <Content Include="JS\Angular\NewComplaintReportController.js" />
     <Content Include="JS\Angular\ComplaintReportShowController.js" />
     <Content Include="JS\Angular\ComplaintReportShowFactory.js" />
@@ -326,6 +331,7 @@
     <Content Include="Assets\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="App_Browsers\Form.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
+    <Content Include="App_Plugins\uSync\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -352,6 +358,64 @@
     <Content Include="Views\NewComplaintReport.cshtml" />
     <Content Include="Views\SearchComplaintReportsPage.cshtml" />
     <Content Include="Views\Partials\Demo\NewComplaintReportPartial.cshtml" />
+    <Content Include="Views\ShowComplaintReport.cshtml" />
+    <Content Include="Views\Partials\Demo\ShowComplaintReportPartial.cshtml" />
+    <Content Include="uSync\data\DataType\approved-color\ApprovedColor.config" />
+    <Content Include="uSync\data\DataType\checkbox-list\CheckboxList.config" />
+    <Content Include="uSync\data\DataType\content-picker\ContentPicker.config" />
+    <Content Include="uSync\data\DataType\date-picker-with-time\DatePickerWithTime.config" />
+    <Content Include="uSync\data\DataType\date-picker\DatePicker.config" />
+    <Content Include="uSync\data\DataType\dropdown-multiple\DropdownMultiple.config" />
+    <Content Include="uSync\data\DataType\dropdown\Dropdown.config" />
+    <Content Include="uSync\data\DataType\headlinedt-overskrift-textbox\HeadlineDTOverskriftTextbox.config" />
+    <Content Include="uSync\data\DataType\hideinnavdt-skjul-i-navigasjon-truefalse\HideInNavDTSkjulINavigasjonTrueFalse.config" />
+    <Content Include="uSync\data\DataType\image-cropper\ImageCropper.config" />
+    <Content Include="uSync\data\DataType\label\Label.config" />
+    <Content Include="uSync\data\DataType\list-view-content\ListViewContent.config" />
+    <Content Include="uSync\data\DataType\list-view-media\ListViewMedia.config" />
+    <Content Include="uSync\data\DataType\list-view-members\ListViewMembers.config" />
+    <Content Include="uSync\data\DataType\media-picker\MediaPicker.config" />
+    <Content Include="uSync\data\DataType\member-adresse-textbox\MemberAdresseTextbox.config" />
+    <Content Include="uSync\data\DataType\member-alder-date\MemberAlderDate.config" />
+    <Content Include="uSync\data\DataType\member-etternavn-textbox\MemberEtternavnTextbox.config" />
+    <Content Include="uSync\data\DataType\member-fronavn-textbox\MemberFronavnTextbox.config" />
+    <Content Include="uSync\data\DataType\member-kontaktperson-textbox\MemberKontaktpersonTextbox.config" />
+    <Content Include="uSync\data\DataType\member-picker\MemberPicker.config" />
+    <Content Include="uSync\data\DataType\multiple-media-picker\MultipleMediaPicker.config" />
+    <Content Include="uSync\data\DataType\numeric\Numeric.config" />
+    <Content Include="uSync\data\DataType\radiobox\Radiobox.config" />
+    <Content Include="uSync\data\DataType\related-links\RelatedLinks.config" />
+    <Content Include="uSync\data\DataType\richtext-editor\RichtextEditor.config" />
+    <Content Include="uSync\data\DataType\tags\Tags.config" />
+    <Content Include="uSync\data\DataType\textarea\Textarea.config" />
+    <Content Include="uSync\data\DataType\textstring\Textstring.config" />
+    <Content Include="uSync\data\DataType\true-false\Truefalse.config" />
+    <Content Include="uSync\data\DataType\upload\Upload.config" />
+    <Content Include="uSync\data\DocumentType\demo\complaintreports\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\composition\hideinnavdt\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\dashboardcomplaintreports\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\dealerhomepage\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\dealermaster\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\editmypage\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\loginpage\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\mypage\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\newcomplaintreport\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\searchcomplaintreportspage\def.config" />
+    <Content Include="uSync\data\DocumentType\demo\showcomplaintreport\def.config" />
+    <Content Include="uSync\data\Languages\enUS.config" />
+    <Content Include="uSync\data\MediaType\file\def.config" />
+    <Content Include="uSync\data\MediaType\folder\def.config" />
+    <Content Include="uSync\data\MediaType\image\def.config" />
+    <Content Include="uSync\data\Template\dealermaster\dashboardcomplaintreports\DashboardComplaintReports.config" />
+    <Content Include="uSync\data\Template\dealermaster\dealerhome\DealerHome.config" />
+    <Content Include="uSync\data\Template\dealermaster\DealerMaster.config" />
+    <Content Include="uSync\data\Template\dealermaster\editmypage\EditMyPage.config" />
+    <Content Include="uSync\data\Template\dealermaster\mypage\MyPage.config" />
+    <Content Include="uSync\data\Template\dealermaster\newcomplaintreport\NewComplaintReport.config" />
+    <Content Include="uSync\data\Template\dealermaster\searchcomplaintreportspage\SearchComplaintReportsPage.config" />
+    <Content Include="uSync\data\Template\loginmaster\LoginMaster.config" />
+    <Content Include="uSync\data\Template\loginpage\LoginPage.config" />
+    <Content Include="uSync\data\Template\showcomplaintreport\ShowComplaintReport.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -494,6 +558,10 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Demo.Core\Demo.Core.csproj">
+      <Project>{B4B8FA9F-DC88-425B-9148-3180C4587FCB}</Project>
+      <Name>Demo.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Demo.Infrastructure\Demo.Infrastructure.csproj">
       <Project>{4da4bb16-bb82-4b8c-b5af-afdacc9fe6f8}</Project>
       <Name>Demo.Infrastructure</Name>

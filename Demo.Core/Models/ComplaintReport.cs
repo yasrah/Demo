@@ -34,7 +34,7 @@ namespace Demo.Core.Models
         public bool PartsReturned { get; set; }
         public bool CreateEmail { get; set; }
         public int Test { get; set; }
-        public virtual ICollection<Part> Parts { get; set; }
+        public virtual ICollection<ComplaintReportPart> ComplaintReportParts { get; set; }
 
     }
 

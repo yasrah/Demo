@@ -43,14 +43,13 @@
                 return response;
             });
         },
-        GetComplaintReport: function (id) {
-            return $http.get("/umbraco/api/dealer/GetComplaintReport?id=" + id).then(function (response) {
+        GetComplaintReportById: function (reportId) {
+            return $http.get("/umbraco/api/complaintreportapi/getcomplaintreportbyid?reportId=" + reportId).then(function (response) {
                 return response;
             });
         },
         UpdateComplaintReport: function (data) {
-            alert("In UpdateComplaintReport");
-            return $http.post("/umbraco/api/dealer/updatecomplaintreport", data);
+            return $http.post("/umbraco/api/complaintreportapi/updatecomplaintreport", data);
         },
     }
 }

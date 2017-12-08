@@ -75,6 +75,7 @@ namespace Demo.API
                 Address = model.Customer.Address,
                 CustomerType = (CustomerType)model.Customer.CustomerType
             };
+
             var newCreatedCustomer = ctx.Customers.Add(newCustomer);
             ctx.SaveChanges();
 
@@ -112,7 +113,16 @@ namespace Demo.API
             };
 
             var id = model.Parts.First().PartId;
-            newReport.Parts = ctx.Parts.Where(p => p.PartId == id).ToList();
+            var reportPart = new ComplaintReportPart
+            {
+                ComplaintReport = newReport,
+                Part = ctx.Parts.SingleOrDefault(p => p.PartId == id),
+                Amount = model.Parts.First().Amount
+            };
+
+            ctx.ComplaintReportParts.Add(reportPart); 
+            //ctx.SaveChanges();
+
             //var selectedDealer = ctx.Dealers.SingleOrDefault(d => d.DealerId == Int32.Parse(model.DealerName));
 
             //newReport.Dealer = selectedDealer;
@@ -127,5 +137,94 @@ namespace Demo.API
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(newCreatedReport.ComplaintReportId.ToString()) };
         }
 
+        public ExistingComplaintReportViewModel GetComplaintReportById(int reportId)
+        {
+            return complaintReportRepo.GetComplaintReportById(reportId);
+        }
+
+        public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+
+            var report = ctx.ComplaintReports
+                .Include(r => r.Customer)
+                .Include(r => r.ComplaintReportParts.Select(crp => crp.Part))
+                .SingleOrDefault( r => r.ComplaintReportId == model.ComplaintReportId);
+
+            report.MachineNo1 = model.MachineNo1;
+            report.MachineNo2 = model.MachineNo2;
+
+            report.CustomerId = model.Customer.CustomerId;
+
+            // Update Parts
+            // First delete old ones
+            var partsToBeDeleted = report.ComplaintReportParts;
+            if (partsToBeDeleted != null)
+            {
+                ctx.ComplaintReportParts.RemoveRange(partsToBeDeleted);
+                ctx.SaveChanges();
+            }
+
+
+            // TEST START
+
+            var partsToAdd = model.Parts.Select( p => 
+            new ComplaintReportPart
+            {
+                ComplaintReport = report,
+                Part = ctx.Parts.SingleOrDefault(pa => pa.PartId == p.PartId),
+                Amount = model.Parts.First().Amount
+            });
+
+            // TEST END
+
+
+            //// Add new ones
+            //var partId = model.Parts.First().PartId;
+            //var reportPart = new ComplaintReportPart
+            //{
+            //    ComplaintReport = report,
+            //    Part = ctx.Parts.SingleOrDefault(p => p.PartId == partId),
+            //    Amount = model.Parts.First().Amount
+            //};
+            ctx.ComplaintReportParts.AddRange(partsToAdd);
+
+
+            //var newProductModel = new ProductModel()
+            //{
+            //   ProductModelId = model.ProductModel.ProductModelId,
+            //   ProductId = model.Product.ProductId,
+            //   Name = model.ProductModel.Name,
+            //};
+            report.ProductModelId = model.ProductModel;
+
+            report.EngineNo = model.EngineNo;
+            report.TimeAmount = model.TimeAmount;
+            report.SaleDate = model.SaleDate;
+            report.DamageDate = model.DamageDate;
+            report.RepairDate = model.RepairDate;
+            report.Error = model.Error;
+            report.ReasonForError = model.ReasonForError;
+            report.PartsMarked = model.PartsMarked;
+            report.PartsReturned = model.PartsReturned;
+            report.CreateEmail = model.CreateEmail;
+            report.Status = (Status?)model.Status;
+            report.Closed = model.Closed;
+            report.LastEditedByDealerId = memberRepo.GetCurrentMemberId();
+
+            // Update Customer
+            report.Customer.Name = model.Customer.Name;
+            report.Customer.Address = model.Customer.Address;
+            report.Customer.CustomerType = (CustomerType)model.Customer.CustomerType;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            ctx.SaveChanges();
+
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(updatedReport.ComplaintReportId.ToString()) };
+        }
     }
 }

@@ -23,7 +23,8 @@ namespace Demo.Infrastructure.Context
         public DbSet<ProductModel> ProductModels { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Part> Parts { get; set; }
-        
+        public DbSet<ComplaintReportPart> ComplaintReportParts { get; set; }
+
         ////public DbSet<Dealer> Dealers { get; set; }
         //public DbSet<Dealer> Dealers { get; set; }
         //public DbSet<ComplaintPart> ComplaintParts { get; set; }
@@ -31,15 +32,15 @@ namespace Demo.Infrastructure.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ComplaintReport>()
-                .HasMany(p => p.Parts)
-                .WithMany(c => c.ComplaintReports)
-                .Map(m =>
-                {
-                    m.ToTable("ComplaintReportParts");
-                    m.MapLeftKey("ComplaintReportId");
-                    m.MapRightKey("PartId");
-                });
+            //modelBuilder.Entity<ComplaintReport>()
+            //    .HasMany(p => p.Parts)
+            //    .WithMany(c => c.ComplaintReports)
+            //    .Map(m =>
+            //    {
+            //        m.ToTable("ComplaintReportParts");
+            //        m.MapLeftKey("ComplaintReportId");
+            //        m.MapRightKey("PartId");
+            //    });
 
             base.OnModelCreating(modelBuilder);
         }

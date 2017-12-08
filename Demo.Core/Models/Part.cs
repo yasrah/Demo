@@ -18,7 +18,7 @@ namespace Demo.Core.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Shipping { get; set; }
-        public virtual ICollection<ComplaintReport> ComplaintReports { get; set; }
+        public virtual ICollection<ComplaintReportPart> ComplaintReportParts { get; set; }
 
     }
 }

@@ -1,0 +1,9 @@
+﻿@*@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ShowComplaintReport>
+@using ContentModels = Umbraco.Web.PublishedContentModels;*@
+
+@{
+    Layout = "DealerMaster.cshtml";
+}
+@*@Html.Action("ShowComplaintReport", "ComplaintReport")*@
+
+@Html.Partial("~/Views/Partials/Demo/ShowComplaintReportPartial.cshtml", Request.QueryString["reportId"])
