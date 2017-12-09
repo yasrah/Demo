@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "72167afdc07faa6b")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "18ee373e007175de")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -331,16 +331,16 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>ShowComplaintReport</summary>
-	[PublishedContentModel("showComplaintReport")]
-	public partial class ShowComplaintReport : PublishedContentModel, IHideInNavDT
+	/// <summary>NewPasswordPage</summary>
+	[PublishedContentModel("newPasswordPage")]
+	public partial class NewPasswordPage : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "showComplaintReport";
+		public new const string ModelTypeAlias = "newPasswordPage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public ShowComplaintReport(IPublishedContent content)
+		public NewPasswordPage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -351,18 +351,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ShowComplaintReport, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewPasswordPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Skjul i navigasjon
-		///</summary>
-		[ImplementPropertyType("hideInNavigation")]
-		public bool HideInNavigation
-		{
-			get { return Umbraco.Web.PublishedContentModels.HideInNavDT.GetHideInNavigation(this); }
 		}
 	}
 
@@ -387,6 +378,41 @@ namespace Umbraco.Web.PublishedContentModels
 #pragma warning restore 0109
 
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NoAccess, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Skjul i navigasjon
+		///</summary>
+		[ImplementPropertyType("hideInNavigation")]
+		public bool HideInNavigation
+		{
+			get { return Umbraco.Web.PublishedContentModels.HideInNavDT.GetHideInNavigation(this); }
+		}
+	}
+
+	/// <summary>ShowComplaintReport</summary>
+	[PublishedContentModel("showComplaintReport")]
+	public partial class ShowComplaintReport : PublishedContentModel, IHideInNavDT
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "showComplaintReport";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public ShowComplaintReport(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ShowComplaintReport, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}

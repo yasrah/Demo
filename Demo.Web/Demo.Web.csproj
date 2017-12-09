@@ -66,6 +66,12 @@
     <Reference Include="controls, Version=1.0.6528.26353, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.7.6\lib\net45\controls.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=0.1.88.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.88\lib\net45\Examine.dll</HintPath>
     </Reference>
@@ -332,7 +338,9 @@
     <Content Include="App_Browsers\Form.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="App_Plugins\uSync\package.manifest" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
@@ -418,6 +426,7 @@
     <Content Include="uSync\data\Template\showcomplaintreport\ShowComplaintReport.config" />
     <Content Include="Views\NoAccess.cshtml" />
     <Content Include="Views\Partials\Demo\ComplaintReportsPartial.cshtml" />
+    <Content Include="uSync\data\DocumentType\demo\noaccess\def.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
