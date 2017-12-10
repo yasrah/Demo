@@ -1,7 +1,9 @@
 ﻿using Demo.Core.Models;
+using Demo.Infrastructure.Attribute;
 using Demo.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,10 @@ namespace Demo.Infrastructure
 {
     public class NewComplaintReportViewModel
     {
+        public NewComplaintReportViewModel()
+        {
 
+        }
         public NewComplaintReportViewModel(ComplaintReport c)
         {
             //MachineNo1 = c.MachineNo1;
@@ -30,28 +35,56 @@ namespace Demo.Infrastructure
             //PartsMarked = c.PartsMarked;
             //PartsReturned = c.PartsReturned;
             //CreateEmail = c.CreateEmail;
-
         }
 
+        [Required]
         public string MachineNo1 { get; set; }
+
+        [Required]
         public string MachineNo2 { get; set; }
-        public int DealerId { get; set; }
-        public DateTime SaleDate { get; set; }
-        public DateTime DamageDate { get; set; }
-        public DateTime RepairDate { get; set; }
-        public int TimeAmount { get; set; }
+
+        [Required]
+        public DateTime? SaleDate { get; set; }
+
+        [Required]
+        public DateTime? DamageDate { get; set; }
+
+        [Required]
+        public DateTime? RepairDate { get; set; }
+
+        [Required]
+        public int? TimeAmount { get; set; }
+
+        [Required]
         public string EngineNo { get; set; }
+
+        [Required]
         public CustomerViewModel Customer { get; set; }
-        public int ProductModel { get; set; }
-        public int CustomerId { get; set; }
-        public int? Status { get; set; }
-        public bool Closed { get; set; }
+        //public int CustomerId { get; set; }
+
+        [Required(ErrorMessage = "ProductModel må oppgis!")]
+        public int? ProductModel { get; set; }
+
+        //public int Status { get; set; }
+
+        //[Required]
+        //public bool Closed { get; set; }
+
+        [Required]
         public string Error { get; set; }
+
+        [Required]
         public string ReasonForError { get; set; }
+
         public bool PartsMarked { get; set; }
+
         public bool PartsReturned { get; set; }
+
         public bool CreateEmail { get; set; }
-        public List<PartViewModel> Parts{ get; set; }
-        public bool SentToApproval { get; set; }
+
+        [EnsureMinimumElements(1, ErrorMessage = "Deler: Minst en del må oppgis.")]
+        public List<PartViewModel> Parts { get; set; }
+
+        //public bool SentToApproval { get; set; }
     }
 }

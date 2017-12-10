@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201712081208119_Initial1.Designer.cs">
       <DependentUpon>201712081208119_Initial1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712101550537_ChangeToComplaintReportModel.cs" />
+    <Compile Include="Migrations\201712101550537_ChangeToComplaintReportModel.Designer.cs">
+      <DependentUpon>201712101550537_ChangeToComplaintReportModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComplaintReportWrapper.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Repositories\MemberRepository.cs" />
     <Compile Include="Repositories\MyPageRepository.cs" />
     <Compile Include="Repositories\SiteRepository.cs" />
+    <Compile Include="Attribute\EnsureMinimumElementsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -109,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712081208119_Initial1.resx">
       <DependentUpon>201712081208119_Initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101550537_ChangeToComplaintReportModel.resx">
+      <DependentUpon>201712101550537_ChangeToComplaintReportModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

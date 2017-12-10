@@ -73,27 +73,23 @@
         Product: null,
         ProductModel: null,
         Customer: {
-            Name: null,
-            Address: null,
+            Name: '',
+            Address: '',
             CustomerType: null,
         },
-        MachineNo1: null,
-        MachineNo2: null,
-        EngineNo: null,
+        MachineNo1: '',
+        MachineNo2: '',
+        EngineNo: '',
         TimeAmount: null,
         SaleDate: null,
-        DamageDate: null,
-        RepairDate: null,
-        Error: null,
-        ReasonForError: null,
+        DamageDate: '',
+        RepairDate: '',
+        Error: '',
+        ReasonForError: '',
         PartsMarked: false,
         PartsReturned: false,
         CreateEmail: false,
-        Status: null,
-        Closed: false,
-        Parts: [],
-        SentToApproval: false
-
+        Parts: []
     }
 
 
@@ -163,7 +159,7 @@
 
     $scope.submit = function () {
         alert("Submit...");
-        //$scope.success = false;
+        $scope.error = false;
         //$timeout.cancel(ti);
         ComplaintReportFactory.NewComplaintReport($scope.newComplaintReport).then(function success(response) {
             $scope.newComplaintReportId = response.data;
@@ -175,7 +171,7 @@
                 $window.location.href = "/login-gikk galt";
             }
             else {
-                $scope.error = "Noe gikk galt. Prøv igjen senere!"
+                $scope.error = response.data.split(',');
             }
         });
     };

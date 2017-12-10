@@ -27,7 +27,7 @@ namespace Demo.Infrastructure.Models
         public CustomerViewModel Customer { get; set; }
         public int CustomerId { get; set; }
         public int ProductModel { get; set; }
-        public int? Status { get; set; }
+        public int Status { get; set; }
         public bool Closed { get; set; }
         public string Error { get; set; }
         public string ReasonForError { get; set; }

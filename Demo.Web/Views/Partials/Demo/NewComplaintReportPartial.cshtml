@@ -6,6 +6,7 @@
 
 <div class="row" ng-controller="NewComplaintReportController" ng-cloak>
     <div class="col-lg-12">
+        {{newComplaintReport}}
         <div class="panel panel-info">
             <div class="panel-heading">
                 Reklamasjonstype
@@ -47,7 +48,7 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" id="contact" ng-submit="submit()" novalidate ng-cloak>
-                                <fieldset>
+                                <kfieldset>
 
                                     <div class="form-group">
                                         <label for="Name">Skriv inn maskinnummer (chassisnummer / application frame serial number)</label>
@@ -56,6 +57,9 @@
                                             <input class="form-control" ng-model="newComplaintReport.MachineNo2" id="MachineNo2" type="text" placeholder="MachineNo2">
                                         </div>
                                     </div>
+                                </kfieldset>
+                                <fieldset disabled>
+
                                     <div class="form-group">
                                         <label for="Name">Pålogget forhandlernavn</label>
                                         <input class="form-control" ng-model="currentDealerData.FirstName" id="DealerName" type="text" placeholder="DealerName">
@@ -72,7 +76,7 @@
                                         <label for="Name">Epost</label>
                                         <input class="form-control" ng-model="currentDealerData.Email" id="Email" type="text" placeholder="Email">
                                     </div>
-                                    <p class="alert-danger">{{error}}</p>
+                                 
                                     <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         Reklamasjonsrapport er laget!
@@ -91,51 +95,51 @@
                         <div class="panel-body">
                             <fieldset>
                                 @*<div class="form-group">
-                                    <label for="SearchCustomer">Søk kunde</label>
-                                    <form name="form-country_v1" id="form-country_v1">
-                                        <div class="typeahead__container">
-                                            <div class="typeahead__field">
+                                        <label for="SearchCustomer">Søk kunde</label>
+                                        <form name="form-country_v1" id="form-country_v1">
+                                            <div class="typeahead__container">
+                                                <div class="typeahead__field">
 
-                                                <span class="typeahead__query">
-                                                    <input name="country_v1[query]" class="js-typeahead-country_v1 " type="search" placeholder="Search" autocomplete="off">
-                                                </span>
-                                                <span class="typeahead__button">
-                                                    <button type="submit">
-                                                        <i class="typeahead__search-icon"></i>
-                                                    </button>
-                                                </span>
+                                                    <span class="typeahead__query">
+                                                        <input name="country_v1[query]" class="js-typeahead-country_v1 " type="search" placeholder="Search" autocomplete="off">
+                                                    </span>
+                                                    <span class="typeahead__button">
+                                                        <button type="submit">
+                                                            <i class="typeahead__search-icon"></i>
+                                                        </button>
+                                                    </span>
 
+                                                </div>
                                             </div>
+                                        </form>
+                                    </div>
+                                    existingCustomerSelected: {{existingCustomerSelected}}
+                                    <div class="form-group">
+                                        <h4>Static arrays</h4>
+                                        <pre>Model: {{selectedCustomer | json}}</pre>
+                                        <input type="text" ng-model="selectedCustomer" uib-typeahead="customer for customer in customers | filter:$viewValue | limitTo:8" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <h4>Asynchronous results</h4>
+                                        <pre>Model: {{asyncSelected | json}}</pre>
+                                        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="state as state.Name for state in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <div ng-show="noResults">
+                                            <i class="glyphicon glyphicon-remove"></i> No Results Found
                                         </div>
-                                    </form>
-                                </div>
-                                existingCustomerSelected: {{existingCustomerSelected}}
-                                <div class="form-group">
-                                    <h4>Static arrays</h4>
-                                    <pre>Model: {{selectedCustomer | json}}</pre>
-                                    <input type="text" ng-model="selectedCustomer" uib-typeahead="customer for customer in customers | filter:$viewValue | limitTo:8" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <h4>Asynchronous results</h4>
-                                    <pre>Model: {{asyncSelected | json}}</pre>
-                                    <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="state as state.Name for state in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                    <div ng-show="noResults">
-                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                                    </div>
-                                </div>*@
+                                    </div>*@
                                 @*<div class="form-group">
-                                    <h4>Custom popup templates for typeahead's dropdown</h4>
-                                    <pre>Model: {{asyncSelected | json}}</pre>
-                                    <pre>isCustomerFieldsChanged {{isCustomerFieldsChanged}}</pre>
-                                    <label for="Name">Navn</label>
+                                        <h4>Custom popup templates for typeahead's dropdown</h4>
+                                        <pre>Model: {{asyncSelected | json}}</pre>
+                                        <pre>isCustomerFieldsChanged {{isCustomerFieldsChanged}}</pre>
+                                        <label for="Name">Navn</label>
 
-                                    <input type="text" ng-model="asyncSelected" placeholder="Custom popup template" uib-typeahead="state as state.Name for state in getLocation($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                    <div ng-show="noResults">
-                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                                    </div>
-                                </div>*@
+                                        <input type="text" ng-model="asyncSelected" placeholder="Custom popup template" uib-typeahead="state as state.Name for state in getLocation($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <div ng-show="noResults">
+                                            <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <label for="Name">Navn</label>
                                     <input class="form-control" ng-model="newComplaintReport.Customer.Name" id="CustomerName" type="text" placeholder="Navn">
@@ -156,11 +160,6 @@
                                             <input type="radio" ng-model="newComplaintReport.Customer.CustomerType" name="optionsRadios" id="optionCustomerType2" value="2">Næring
                                         </label>
                                     </div>
-                                </div>
-                                <p class="alert-danger">{{error}}</p>
-                                <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    Reklamasjonsrapport er laget!
                                 </div>
                             </fieldset>
                         </div>
@@ -198,11 +197,6 @@
                                             <label for="Name">Motornr</label>
                                             <input class="form-control" ng-model="newComplaintReport.EngineNo" id="MotorNr" type="text" placeholder="MotorNr">
                                         </div>
-                                        <p class="alert-danger">{{error}}</p>
-                                        <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            Reklamasjonsrapport er laget!
-                                        </div>
                                     </fieldset>
                                 </form>
 
@@ -225,11 +219,6 @@
                                         <div class="form-group">
                                             <label for="Name">Reperasjonsdato</label>
                                             <input class="form-control" ng-model="newComplaintReport.RepairDate" id="RepairDate" type="date" placeholder="Reperasjondato">
-                                        </div>
-                                        <p class="alert-danger">{{error}}</p>
-                                        <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            Reklamasjonsrapport er laget!
                                         </div>
                                     </fieldset>
                                 </form>
@@ -261,10 +250,10 @@
                                         <label>Deler</label>
                                         <div class="form-group">
                                             @*<pre>partList: {{partList}}</pre>
-                                            <h4>Legg til deler</h4>
-                                            <pre>Model: {{asyncSelected | json}}</pre>*@
+                                                <h4>Legg til deler</h4>
+                                                <pre>Model: {{asyncSelected | json}}</pre>*@
 
-                                            <input type="text" ng-model="asyncSelected"  typeahead-on-select="onSelect($item, $model, $label)" placeholder="Søk deler og legg til" uib-typeahead="state as (state.PartId +' : '+ state.Description + ' : ' + state.Price) for state in getParts($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                            <input type="text" ng-model="asyncSelected" typeahead-on-select="onSelect($item, $model, $label)" placeholder="Søk deler og legg til" uib-typeahead="state as (state.PartId +' : '+ state.Description + ' : ' + state.Price) for state in getParts($viewValue)" class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
                                             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                                             <div ng-show="noResults">
                                                 <i class="glyphicon glyphicon-remove"></i> Ingen deler funnet!
@@ -366,7 +355,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        @*<div class="form-group">
                                             <label>Status</label>
                                             <div class="radio">
                                                 <label>
@@ -378,20 +367,27 @@
                                                     <input type="radio" ng-model="newComplaintReport.Status" name="optionsRadios" id="optionCustomerType2" value="2" ng-checked="newComplaintReport.Status == 2">Avslått
                                                 </label>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
+                                        </div>*@
+                                        @*<div class="form-group">
                                             <label>Ferdigmeldt</label>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" ng-model="newComplaintReport.Closed">Ferdigmeld
                                             </label>
-                                        </div>
+                                        </div>*@
                                         <button type="submit" class="btn btn-success">Lagre</button>
                                         <button type="button" class="btn btn-default">Avbryt</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
-                                        <p class="alert-danger">{{error}}</p>
+                                        <p></p>
                                         <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                             Reklamasjonsrapport er laget!
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissable" ng-show="error" style="transition: all linear 0.5s;">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <strong>Følgende feil må rettes:</strong>
+                                            <ul>
+                                                <li ng-repeat=" item in error">{{item}}</li>
+                                            </ul>
                                         </div>
                                     </fieldset>
                                 </form>
