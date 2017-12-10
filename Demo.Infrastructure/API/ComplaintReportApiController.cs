@@ -177,6 +177,39 @@ namespace Demo.API
             }
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
         }
+
+        [HttpGet]
+        public HttpResponseMessage Approve(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            var updateResult = complaintReportRepo.Approve(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+
+        [HttpGet]
+        public HttpResponseMessage Deny(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            var updateResult = complaintReportRepo.Deny(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+
+
+
         public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
         {
             if (!ModelState.IsValid)

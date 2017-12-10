@@ -56,6 +56,16 @@
                 return response;
             });
         },
+        Approve: function (reportId) {
+            return $http.get("/umbraco/api/complaintreportapi/approve?reportId=" + reportId).then(function (response) {
+                return response;
+            });
+        },
+        Deny: function (reportId) {
+            return $http.get("/umbraco/api/complaintreportapi/deny?reportId=" + reportId).then(function (response) {
+                return response;
+            });
+        },
     }
 }
 ]);

@@ -39,7 +39,38 @@
             $scope.changeEditMode();
             ComplaintReportFactory.SendToApproval($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReportFormatted.SendToApproval = true;
+                    $scope.complaintReport.Status = 1;
+                    updateModel();
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.approve = function () {
+        if (window.confirm('Are you sure you want to send to approval this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.Approve($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReport.Status = 2;
+                    updateModel();
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.deny = function () {
+        if (window.confirm('Are you sure you want to send to deny this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.Deny($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReport.Status = 3;
+                    updateModel();
                 },
                 function error(response) {
                     alert("Error in SendToApproval");

@@ -158,7 +158,6 @@
     };
 
     $scope.submit = function () {
-        alert("Submit...");
         $scope.error = false;
         //$timeout.cancel(ti);
         ComplaintReportFactory.NewComplaintReport($scope.newComplaintReport).then(function success(response) {

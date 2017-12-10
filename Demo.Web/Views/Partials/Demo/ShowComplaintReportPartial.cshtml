@@ -6,35 +6,38 @@
 </div>
 @*<pre>@Model</pre>*@
 <div class="row" ng-controller="ShowComplaintReportController" ng-init="init(@Model)" ng-cloak>
+    {{complaintReport}}
+    <hr />
+    {{complaintReportFormatted}}
     <div class="col-lg-12">
         @*<div class="panel panel-info">
-            <div class="panel-heading">
-                Reklamasjonstype
-            </div>
-            <div class="panel-body">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <form role="form" id="contact" ng-submit="submit()" novalidate ng-cloak>
-                            <fieldset ng-disabled="!editing">
-                                <div class="form-group">
-                                    <label>Velg type rapport</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" ng-model="wizard.currentStep" name="optionsRadios" id="optionsRadios1" value="1" ng-checked="wizard.currentStep ==1">Produktreklamasjon
-                                        </label>
+                <div class="panel-heading">
+                    Reklamasjonstype
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <form role="form" id="contact" ng-submit="submit()" novalidate ng-cloak>
+                                <fieldset ng-disabled="!editing">
+                                    <div class="form-group">
+                                        <label>Velg type rapport</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" ng-model="wizard.currentStep" name="optionsRadios" id="optionsRadios1" value="1" ng-checked="wizard.currentStep ==1">Produktreklamasjon
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" ng-model="wizard.currentStep" name="optionsRadios" id="optionsRadios2" value="2" ng-checked="wizard.currentStep ==2">Øvrige reklamasjoner
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" ng-model="wizard.currentStep" name="optionsRadios" id="optionsRadios2" value="2" ng-checked="wizard.currentStep ==2">Øvrige reklamasjoner
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
+                                </fieldset>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
         <div class="panel panel-info" ng-if="wizard.currentStep == 1">
             <div class="panel-heading">
@@ -57,7 +60,7 @@
                                             <input class="form-control" ng-model="complaintReportFormatted.MachineNo2" id="MachineNo2" type="text" placeholder="MachineNo2">
                                         </div>
                                     </div>
-                                    </fieldset>
+                                </fieldset>
                                 <fieldset ng-disabled="true">
 
                                     <div class="form-group">
@@ -95,51 +98,51 @@
                         <div class="panel-body">
                             <fieldset ng-disabled="!editing">
                                 @*<div class="form-group">
-                                    <label for="SearchCustomer">Søk kunde</label>
-                                    <form name="form-country_v1" id="form-country_v1">
-                                        <div class="typeahead__container">
-                                            <div class="typeahead__field">
+                                        <label for="SearchCustomer">Søk kunde</label>
+                                        <form name="form-country_v1" id="form-country_v1">
+                                            <div class="typeahead__container">
+                                                <div class="typeahead__field">
 
-                                                <span class="typeahead__query">
-                                                    <input name="country_v1[query]" class="js-typeahead-country_v1 " type="search" placeholder="Search" autocomplete="off">
-                                                </span>
-                                                <span class="typeahead__button">
-                                                    <button type="submit">
-                                                        <i class="typeahead__search-icon"></i>
-                                                    </button>
-                                                </span>
+                                                    <span class="typeahead__query">
+                                                        <input name="country_v1[query]" class="js-typeahead-country_v1 " type="search" placeholder="Search" autocomplete="off">
+                                                    </span>
+                                                    <span class="typeahead__button">
+                                                        <button type="submit">
+                                                            <i class="typeahead__search-icon"></i>
+                                                        </button>
+                                                    </span>
 
+                                                </div>
                                             </div>
+                                        </form>
+                                    </div>
+                                    existingCustomerSelected: {{existingCustomerSelected}}
+                                    <div class="form-group">
+                                        <h4>Static arrays</h4>
+                                        <pre>Model: {{selectedCustomer | json}}</pre>
+                                        <input type="text" ng-model="selectedCustomer" uib-typeahead="customer for customer in customers | filter:$viewValue | limitTo:8" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <h4>Asynchronous results</h4>
+                                        <pre>Model: {{asyncSelected | json}}</pre>
+                                        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="state as state.Name for state in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <div ng-show="noResults">
+                                            <i class="glyphicon glyphicon-remove"></i> No Results Found
                                         </div>
-                                    </form>
-                                </div>
-                                existingCustomerSelected: {{existingCustomerSelected}}
-                                <div class="form-group">
-                                    <h4>Static arrays</h4>
-                                    <pre>Model: {{selectedCustomer | json}}</pre>
-                                    <input type="text" ng-model="selectedCustomer" uib-typeahead="customer for customer in customers | filter:$viewValue | limitTo:8" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <h4>Asynchronous results</h4>
-                                    <pre>Model: {{asyncSelected | json}}</pre>
-                                    <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="state as state.Name for state in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                    <div ng-show="noResults">
-                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                                    </div>
-                                </div>*@
+                                    </div>*@
                                 @*<div class="form-group">
-                                    <h4>Custom popup templates for typeahead's dropdown</h4>
-                                    <pre>Model: {{asyncSelected | json}}</pre>
-                                    <pre>isCustomerFieldsChanged {{isCustomerFieldsChanged}}</pre>
-                                    <label for="Name">Navn</label>
+                                        <h4>Custom popup templates for typeahead's dropdown</h4>
+                                        <pre>Model: {{asyncSelected | json}}</pre>
+                                        <pre>isCustomerFieldsChanged {{isCustomerFieldsChanged}}</pre>
+                                        <label for="Name">Navn</label>
 
-                                    <input type="text" ng-model="asyncSelected" placeholder="Custom popup template" uib-typeahead="state as state.Name for state in getLocation($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                    <div ng-show="noResults">
-                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
-                                    </div>
-                                </div>*@
+                                        <input type="text" ng-model="asyncSelected" placeholder="Custom popup template" uib-typeahead="state as state.Name for state in getLocation($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <div ng-show="noResults">
+                                            <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <label for="Name">Navn</label>
                                     <input class="form-control" ng-model="complaintReportFormatted.Customer.Name" id="CustomerName" type="text" placeholder="Navn">
@@ -265,10 +268,10 @@
                                         <label>Deler</label>
                                         <div class="form-group">
                                             @*<pre>partList: {{partList}}</pre>
-                                            <h4>Legg til deler</h4>
-                                            <pre>Model: {{asyncSelected | json}}</pre>*@
+                                                <h4>Legg til deler</h4>
+                                                <pre>Model: {{asyncSelected | json}}</pre>*@
 
-                                            <input type="text" ng-model="asyncSelected"  typeahead-on-select="onSelect($item, $model, $label)" placeholder="Søk deler og legg til" uib-typeahead="state as (state.PartId +' : '+ state.Description + ' : ' + state.Price) for state in getParts($viewValue)"  class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                            <input type="text" ng-model="asyncSelected" typeahead-on-select="onSelect($item, $model, $label)" placeholder="Søk deler og legg til" uib-typeahead="state as (state.PartId +' : '+ state.Description + ' : ' + state.Price) for state in getParts($viewValue)" class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
                                             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                                             <div ng-show="noResults">
                                                 <i class="glyphicon glyphicon-remove"></i> Ingen deler funnet!
@@ -370,39 +373,49 @@
                                                 </label>
                                             </div>
                                         </div>
+                                    </fieldset>
+                                    <fieldset disabled>
+
                                         <div class="form-group">
                                             <label>Status</label>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType1" value="1" ng-checked="complaintReportFormatted.Status == 1">Godkjent
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType1" value="0" ng-checked="complaintReportFormatted.Status == 0">Draft
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="2" ng-checked="complaintReportFormatted.Status == 2">Avslått
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="1" ng-checked="complaintReportFormatted.Status == 1">Sendt til godkjenning
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="2" ng-checked="complaintReportFormatted.Status == 2">Godkjent
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="3" ng-checked="complaintReportFormatted.Status == 3">Avslått
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Ferdigmeldt</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" ng-model="complaintReportFormatted.Closed">Ferdigmeld
-                                            </label>
-                                        </div>
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                                <label>Godkjenning</label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" ng-model="complaintReportFormatted.SentToApproval">Sendt til godkjenning
-                                                </label>
-                                            </div>
-                                        </fieldset>
+                                        @*<fieldset disabled>
+                                                <div class="form-group">
+                                                    <label>Godkjenning</label>
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" ng-model="complaintReportFormatted.SentToApproval">Sendt til godkjenning
+                                                    </label>
+                                                </div>
+                                            </fieldset>*@
                                     </fieldset>
                                     <fieldset>
-                                        <button type="submit" class="btn btn-success" ng-if="editing && !complaintReportFormatted.SentToApproval">Lagre</button>
-                                        <button type="button" class="btn btn-info" ng-if="editing && !complaintReportFormatted.SentToApproval" ng-click="sendToApproval()">Send til godkjenning</button>
+                                        <button type="submit" class="btn btn-success" ng-if="editing">Lagre</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status == 0" ng-click="sendToApproval()">Send til godkjenning</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status != 0" ng-click="sendToApproval()">Send til draft</button>
                                         <button type="button" class="btn btn-warning" ng-click="discardChanges()" ng-if="editing && !complaintReportFormatted.SentToApproval">Forkast endringer</button>
                                         <button type="button" class="btn btn-danger" ng-click="delete()" ng-if="editing">Slett rapport</button>
+                                        <button type="button" class="btn btn-success" ng-click="approve()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 3 )">Godkjenn</button>
+                                        <button type="button" class="btn btn-danger" ng-click="deny()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 2) ">Avslå</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
                                         <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="!editing && !complaintReportFormatted.SentToApproval">Rediger</button>
                                         <p class="alert-danger">{{error}}</p>
