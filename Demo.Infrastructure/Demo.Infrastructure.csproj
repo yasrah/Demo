@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201712101550537_ChangeToComplaintReportModel.Designer.cs">
       <DependentUpon>201712101550537_ChangeToComplaintReportModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712112220555_YaserAddedNyPropTpPart.cs" />
+    <Compile Include="Migrations\201712112220555_YaserAddedNyPropTpPart.Designer.cs">
+      <DependentUpon>201712112220555_YaserAddedNyPropTpPart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComplaintReportWrapper.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712101550537_ChangeToComplaintReportModel.resx">
       <DependentUpon>201712101550537_ChangeToComplaintReportModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712112220555_YaserAddedNyPropTpPart.resx">
+      <DependentUpon>201712112220555_YaserAddedNyPropTpPart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
