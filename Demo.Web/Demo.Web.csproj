@@ -243,12 +243,16 @@
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="CSS\AngularLoadingBar\loading-bar.css" />
     <Content Include="CSS\AngularLoadingBar\loading-bar.min.css" />
     <Content Include="CSS\jquery.typeahead.min.css" />
     <Content Include="CSS\UiBootstrap\ui-bootstrap-2.5.0-csp.css" />
     <Content Include="CSS\umbraco-starterkit-style.css" />
     <Content Include="Custom_CSS\style.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="JS\Angular\app.js" />
     <Content Include="JS\Angular\ChartController.js" />
     <Content Include="JS\Angular\ChartFactory.js" />
@@ -338,9 +342,18 @@
     <Content Include="App_Browsers\Form.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="App_Plugins\uSync\package.manifest" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
@@ -427,6 +440,12 @@
     <Content Include="Views\NoAccess.cshtml" />
     <Content Include="Views\Partials\Demo\ComplaintReportsPartial.cshtml" />
     <Content Include="uSync\data\DocumentType\demo\noaccess\def.config" />
+    <Content Include="Views\Partials\Demo\NewPasswordPagePartial.cshtml" />
+    <Content Include="Views\Partials\Grid\LoginPage.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\NewPasswordPage.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -558,9 +577,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ComplaintReportController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\MyPageController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Models\ForgotenPasswordViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

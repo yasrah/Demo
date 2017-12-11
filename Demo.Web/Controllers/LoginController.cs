@@ -18,7 +18,11 @@ namespace Demo.Web.Controllers
             var model = new LoginViewModel();
             return PartialView("~/Views/Partials/Demo/LoginPartial.cshtml", model);
         }
-
+        public ActionResult ShowNewPasswordRequestForm()
+        {
+            var model = new ForgotenPasswordViewModel();
+            return PartialView("~/Views/Partials/Demo/NewPasswordPagePartial.cshtml", model);
+        }
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
@@ -31,6 +35,32 @@ namespace Demo.Web.Controllers
             TempData["Status"] = "Invalid Log-in Credentials";
             return RedirectToCurrentUmbracoPage();
         }
+        [HttpPost]
+        public ActionResult Email(ForgotenPasswordViewModel model)
+        {
+
+            String username =  Membership.GetUserNameByEmail(model.Email);
+                MembershipUser user = Membership.GetUser(username);
+
+            if (user != null){
+                string oldpassword=user.ResetPassword();
+                string newPassword= Membership.GeneratePassword(12,2);
+                 
+                bool password = user.ChangePassword(oldpassword,newPassword);
+           
+                umbraco.library.SendMail("m.y.rahmati@gmail.com",model.Email,"newPassword","hei "+ user + " passord endred: "+newPassword+"",false);
+               
+            }
+              if (user==null){
+             
+                umbraco.library.SendMail("m.y.rahmati@gmail.com",model.Email,"newPassword","Ingen bruker med "+ model.Email+" er registrert i dette systemet",false);
+               
+            }
+            TempData["Status"] = "Sjekk din inbox for nytt passord!";
+            return Redirect("/");
+            
+        }
+
         [HttpGet]
         public ActionResult Logout()
         {
@@ -38,5 +68,7 @@ namespace Demo.Web.Controllers
             FormsAuthentication.SignOut();
             return Redirect("/");
         }
+
+        
     }
 }
