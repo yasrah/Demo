@@ -65,7 +65,7 @@ namespace Demo.API
             {
                 var validationErrors = ModelState.Values.Where(E => E.Errors.Count > 0)
                     .SelectMany(E => E.Errors)
-                    .Where(E => !E.ErrorMessage.IsNullOrWhiteSpace()).Select( c => c.ErrorMessage)
+                    .Where(E => !E.ErrorMessage.IsNullOrWhiteSpace()).Select(c => c.ErrorMessage)
                     .ToList();
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
@@ -239,7 +239,7 @@ namespace Demo.API
 
         public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
         {
-           
+
             if (!ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
@@ -352,6 +352,8 @@ namespace Demo.API
                 reports = reports.Where(r => r.MemberId == id);
             }
 
+            
+
             IEnumerable<ExistingComplaintReportViewModel> reportsViewMOdel = null;
             if (data.search != null & data.search.value != null & data.search.value != "")
             {
@@ -377,6 +379,45 @@ namespace Demo.API
                 {
                     reportsViewMOdel = reports.AsEnumerable().Take(data.length).Select(c => new ExistingComplaintReportViewModel(c));
                 }
+            }
+
+            //order7
+            var dir = data.order.First().dir.ToString();
+            switch (data.order.First().column.ToString())
+            {
+                case "0":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.ComplaintReportId);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.ComplaintReportId);
+                    }
+                    break;
+                case "1":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.Dealer.Name);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.Dealer.Name);
+                    }
+                    break;
+                case "2":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.Customer.Name);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.Customer.Name);
+                    }
+                    break;
+
+                default:
+                    break;
             }
             return new ComplaintReportWrapper { data = reportsViewMOdel, recordsTotal = tot, recordsFiltered = filteredTot };
 
