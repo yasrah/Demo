@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Demo.Infrastructure.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
@@ -27,10 +28,12 @@ namespace Demo.Infrastructure.Models
             LastName = m.GetValue<string>("lastname");
             Address = m.GetValue<string>("Address");
             ContactPerson = m.GetValue<string>("ContactPerson");
+            IsAdmin = new MemberRepository().IsCurrentMemberAdmin();
         }
 
         public int Id { get; set; }
         public string Email { get; set; }
+        public bool IsAdmin { get; set; }
         public string Login { get; set; }
         public string MemberType { get; set; }
         public string MemberGroup { get; set; }

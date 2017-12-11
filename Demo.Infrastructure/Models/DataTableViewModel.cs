@@ -13,10 +13,16 @@ namespace Demo.Infrastructure.Models
         //public string [] search { get; set; }
 
         public Search search { get; set; }
+        public List<Order> order { get; set; }
     }
 
     public class Search
     {
         public string value { get; set; }
+    }
+    public class Order
+    {
+        public string column { get; set; }
+        public string dir { get; set; }
     }
 }

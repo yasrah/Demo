@@ -26,7 +26,30 @@
     }
 
     $scope.changeEditMode = function () {
-        $scope.editing = !$scope.editing;
+        if ($scope.currentDealerData.IsAdmin) {
+            $scope.editing = !$scope.editing;
+
+        } else {
+            if ($scope.complaintReportFormatted.Status == 0) {
+                $scope.editing = !$scope.editing;
+            }
+        }
+    }
+
+    //$scope.canEdit = function () {
+    //    if ($scope.currentDealerData.IsAdmin) {
+    //        return true;
+
+    //    } else {
+    //        if ($scope.complaintReportFormatted.Status != 0) {
+    //            return false;
+    //        }
+    //    }
+    //}
+
+    $scope.canEdit = function () {
+
+        return $scope.currentDealerData.IsAdmin || ($scope.complaintReportFormatted.Status == 0);
     }
 
     $scope.discardChanges = function () {
@@ -39,7 +62,53 @@
             $scope.changeEditMode();
             ComplaintReportFactory.SendToApproval($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReportFormatted.SendToApproval = true;
+                    $scope.complaintReport.Status = 1;
+                    updateModel();
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.approve = function () {
+        if (window.confirm('Are you sure you want to send to approval this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.Approve($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReport.Status = 2;
+                    updateModel();
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.deny = function () {
+        if (window.confirm('Are you sure you want to send to deny this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.Deny($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReport.Status = 3;
+                    updateModel();
+                },
+                function error(response) {
+                    alert("Error in SendToApproval");
+                }
+            );
+        }
+    }
+
+    $scope.sendToDraft = function () {
+        if (window.confirm('Are you sure you want to send to deny this Id = ' + $scope.complaintReportFormatted.ComplaintReportId + '?')) {
+            $scope.changeEditMode();
+            ComplaintReportFactory.SendToDraft($scope.complaintReportFormatted.ComplaintReportId).then(
+                function success(response) {
+                    $scope.complaintReport.Status = 0;
+                    updateModel();
                 },
                 function error(response) {
                     alert("Error in SendToApproval");

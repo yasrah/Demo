@@ -35,12 +35,43 @@ namespace Demo.Infrastructure.Repositories
         public int SendComplaintReportToApproval(int reportId)
         {
             var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
-            report.SentToApproval = true;
+            report.Status = Status.SentToApproval;
 
             var updatedReport = ctx.ComplaintReports.Attach(report);
             ctx.Entry(report).State = EntityState.Modified;
             return ctx.SaveChanges();
         }
+
+        public int Approve(int reportId)
+        {
+            var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
+            report.Status = Status.Approved;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+
+        public int SendToDraft(int reportId)
+        {
+            var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
+            report.Status = Status.Draft;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+
+        public int Deny(int reportId)
+        {
+            var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
+            report.Status = Status.NotApproved;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+
         public ExistingComplaintReportViewModel GetComplaintReportById(int reportId, bool isAdmin = false)
         {
             var report = ctx.ComplaintReports

@@ -27,7 +27,7 @@ namespace Demo.Core.Models
         public virtual Customer Customer { get; set; }
         public int ProductModelId { get; set; }
         public virtual ProductModel ProductModel { get; set; }
-        public Status? Status { get; set; }
+        public Status Status { get; set; }
         public bool Closed { get; set; }
         public string Error { get; set; }
         public string ReasonForError{ get; set; }
@@ -42,7 +42,9 @@ namespace Demo.Core.Models
 
     public enum Status
     {
-        NotApproved = 0,
-        Approved = 1
+        Draft = 0,
+        SentToApproval = 1,
+        Approved = 2,
+        NotApproved = 3
     }
 }

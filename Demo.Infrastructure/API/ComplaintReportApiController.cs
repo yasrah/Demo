@@ -63,64 +63,79 @@ namespace Demo.API
         {
             if (!ModelState.IsValid)
             {
-                return null;
+                var validationErrors = ModelState.Values.Where(E => E.Errors.Count > 0)
+                    .SelectMany(E => E.Errors)
+                    .Where(E => !E.ErrorMessage.IsNullOrWhiteSpace()).Select(c => c.ErrorMessage)
+                    .ToList();
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(string.Join(",", validationErrors.Select(e => e)))
+                };
             }
 
             //Get ProductModel
             //var productModels = ctx.ProductModels.Where(pm => model.ProductModels.Contains(pm.ProductModelId)).ToList();
 
+            // Customer
             var newCustomer = new Customer()
             {
                 Name = model.Customer.Name,
                 Address = model.Customer.Address,
                 CustomerType = (CustomerType)model.Customer.CustomerType
             };
-
             var newCreatedCustomer = ctx.Customers.Add(newCustomer);
             ctx.SaveChanges();
 
+            // Report
             var newReport = new ComplaintReport()
             {
                 MachineNo1 = model.MachineNo1,
                 MachineNo2 = model.MachineNo2,
 
-                //Forhandler
+                //Forhandler/Member
                 MemberId = memberRepo.GetCurrentMemberId(),
 
                 //Kunde
                 CustomerId = newCreatedCustomer.CustomerId,
 
-                ProductModelId = model.ProductModel,
+                ProductModelId = (int)model.ProductModel,
                 EngineNo = model.EngineNo,
 
-                TimeAmount = model.TimeAmount,
-                SaleDate = model.SaleDate,
-                DamageDate = model.DamageDate,
-                RepairDate = model.RepairDate,
+                TimeAmount = (int)model.TimeAmount,
+                SaleDate = (DateTime)model.SaleDate,
+                DamageDate = (DateTime)model.DamageDate,
+                RepairDate = (DateTime)model.RepairDate,
 
                 Error = model.Error,
                 ReasonForError = model.ReasonForError,
                 PartsMarked = model.PartsMarked,
                 PartsReturned = model.PartsReturned,
                 CreateEmail = model.CreateEmail,
-                Status = (Status?)model.Status,
-                Closed = model.Closed,
-
+                Status = Status.Draft,
+                //Closed = model.Closed,
 
                 CreatedByDealerDate = DateTime.Now,
                 LastEditedByDealerId = memberRepo.GetCurrentMemberId(),
-                
+
             };
 
-            var id = model.Parts.First().PartId;
-            var reportPart = new ComplaintReportPart
+            //var id = model.Parts.First().PartId;
+            //var reportPart = new ComplaintReportPart
+            //{
+            //    ComplaintReport = newReport,
+            //    Part = ctx.Parts.SingleOrDefault(p => p.PartId == id),
+            //    Amount = model.Parts.First().Amount
+            //};
+
+            var partsToAdd = model.Parts.Select(p => new ComplaintReportPart
             {
                 ComplaintReport = newReport,
-                Part = ctx.Parts.SingleOrDefault(p => p.PartId == id),
-                Amount = model.Parts.First().Amount
-            };
+                Part = ctx.Parts.SingleOrDefault(pa => pa.PartId == p.PartId),
+                Amount = p.Amount
+            });
 
-            ctx.ComplaintReportParts.Add(reportPart); 
+
+            ctx.ComplaintReportParts.AddRange(partsToAdd);
             //ctx.SaveChanges();
 
             //var selectedDealer = ctx.Dealers.SingleOrDefault(d => d.DealerId == Int32.Parse(model.DealerName));
@@ -162,8 +177,69 @@ namespace Demo.API
             }
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
         }
+
+        [HttpGet]
+        public HttpResponseMessage Approve(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å godkjenne") };
+            }
+            var updateResult = complaintReportRepo.Approve(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+
+        [HttpGet]
+        public HttpResponseMessage SendToDraft(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å sende report til draft") };
+            }
+            var updateResult = complaintReportRepo.SendToDraft(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+        [HttpGet]
+        public HttpResponseMessage Deny(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å avslå") };
+            }
+            var updateResult = complaintReportRepo.Deny(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+
+
+
         public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
@@ -172,8 +248,13 @@ namespace Demo.API
             var report = ctx.ComplaintReports
                 .Include(r => r.Customer)
                 .Include(r => r.ComplaintReportParts.Select(crp => crp.Part))
-                .SingleOrDefault( r => r.ComplaintReportId == model.ComplaintReportId);
+                .SingleOrDefault(r => r.ComplaintReportId == model.ComplaintReportId);
 
+            if (!memberRepo.IsCurrentMemberAdmin() && report.Status != Status.Draft)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov til dette!") };
+
+            }
             report.MachineNo1 = model.MachineNo1;
             report.MachineNo2 = model.MachineNo2;
 
@@ -191,13 +272,13 @@ namespace Demo.API
 
             // TEST START
 
-            var partsToAdd = model.Parts.Select( p => 
-            new ComplaintReportPart
-            {
-                ComplaintReport = report,
-                Part = ctx.Parts.SingleOrDefault(pa => pa.PartId == p.PartId),
-                Amount = model.Parts.First().Amount
-            });
+            var partsToAdd = model.Parts.Select(p =>
+           new ComplaintReportPart
+           {
+               ComplaintReport = report,
+               Part = ctx.Parts.SingleOrDefault(pa => pa.PartId == p.PartId),
+               Amount = model.Parts.First().Amount
+           });
 
             // TEST END
 
@@ -231,7 +312,7 @@ namespace Demo.API
             report.PartsMarked = model.PartsMarked;
             report.PartsReturned = model.PartsReturned;
             report.CreateEmail = model.CreateEmail;
-            report.Status = (Status?)model.Status;
+            report.Status = (Status)model.Status;
             report.Closed = model.Closed;
             report.LastEditedByDealerId = memberRepo.GetCurrentMemberId();
 
@@ -253,7 +334,7 @@ namespace Demo.API
             var re = Request
                     .GetQueryNameValuePairs()
                     .ToDictionary(x => x.Key, x => x.Value);
-        
+
             int page = (data.start / data.length) + 1;
             int toSkip = (page - 1) * data.length;
             int tot = 0;
@@ -270,6 +351,8 @@ namespace Demo.API
                 var id = memberRepo.GetCurrentMemberId();
                 reports = reports.Where(r => r.MemberId == id);
             }
+
+            
 
             IEnumerable<ExistingComplaintReportViewModel> reportsViewMOdel = null;
             if (data.search != null & data.search.value != null & data.search.value != "")
@@ -296,6 +379,45 @@ namespace Demo.API
                 {
                     reportsViewMOdel = reports.AsEnumerable().Take(data.length).Select(c => new ExistingComplaintReportViewModel(c));
                 }
+            }
+
+            //order7
+            var dir = data.order.First().dir.ToString();
+            switch (data.order.First().column.ToString())
+            {
+                case "0":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.ComplaintReportId);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.ComplaintReportId);
+                    }
+                    break;
+                case "1":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.Dealer.Name);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.Dealer.Name);
+                    }
+                    break;
+                case "2":
+                    if (dir.Equals("asc"))
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderBy(r => r.Customer.Name);
+                    }
+                    else
+                    {
+                        reportsViewMOdel = reportsViewMOdel.OrderByDescending(r => r.Customer.Name);
+                    }
+                    break;
+
+                default:
+                    break;
             }
             return new ComplaintReportWrapper { data = reportsViewMOdel, recordsTotal = tot, recordsFiltered = filteredTot };
 
