@@ -185,6 +185,11 @@ namespace Demo.API
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
             }
+
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å godkjenne") };
+            }
             var updateResult = complaintReportRepo.Approve(reportId);
             if (updateResult == -1)
             {
@@ -194,11 +199,33 @@ namespace Demo.API
         }
 
         [HttpGet]
+        public HttpResponseMessage SendToDraft(int reportId)
+        {
+            if (string.IsNullOrEmpty(reportId.ToString()))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å sende report til draft") };
+            }
+            var updateResult = complaintReportRepo.SendToDraft(reportId);
+            if (updateResult == -1)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Problme updating report") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Sent to approval") };
+        }
+        [HttpGet]
         public HttpResponseMessage Deny(int reportId)
         {
             if (string.IsNullOrEmpty(reportId.ToString()))
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
+            }
+            if (!memberRepo.IsCurrentMemberAdmin())
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov å avslå") };
             }
             var updateResult = complaintReportRepo.Deny(reportId);
             if (updateResult == -1)
@@ -212,6 +239,7 @@ namespace Demo.API
 
         public HttpResponseMessage UpdateComplaintReport(EditComplaintReportViewModel model)
         {
+           
             if (!ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Rett opp feilene!") };
@@ -222,6 +250,11 @@ namespace Demo.API
                 .Include(r => r.ComplaintReportParts.Select(crp => crp.Part))
                 .SingleOrDefault(r => r.ComplaintReportId == model.ComplaintReportId);
 
+            if (!memberRepo.IsCurrentMemberAdmin() && report.Status != Status.Draft)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Du har ikke lov til dette!") };
+
+            }
             report.MachineNo1 = model.MachineNo1;
             report.MachineNo2 = model.MachineNo2;
 

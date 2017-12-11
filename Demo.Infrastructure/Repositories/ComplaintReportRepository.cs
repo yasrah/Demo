@@ -52,6 +52,16 @@ namespace Demo.Infrastructure.Repositories
             return ctx.SaveChanges();
         }
 
+        public int SendToDraft(int reportId)
+        {
+            var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);
+            report.Status = Status.Draft;
+
+            var updatedReport = ctx.ComplaintReports.Attach(report);
+            ctx.Entry(report).State = EntityState.Modified;
+            return ctx.SaveChanges();
+        }
+
         public int Deny(int reportId)
         {
             var report = ctx.ComplaintReports.SingleOrDefault(r => r.ComplaintReportId == reportId);

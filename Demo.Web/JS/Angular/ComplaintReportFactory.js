@@ -66,6 +66,11 @@
                 return response;
             });
         },
+        SendToDraft: function (reportId) {
+            return $http.get("/umbraco/api/complaintreportapi/sendtodraft?reportId=" + reportId).then(function (response) {
+                return response;
+            });
+        },
     }
 }
 ]);

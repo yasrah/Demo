@@ -411,13 +411,13 @@
                                     <fieldset>
                                         <button type="submit" class="btn btn-success" ng-if="editing">Lagre</button>
                                         <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status == 0" ng-click="sendToApproval()">Send til godkjenning</button>
-                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status != 0" ng-click="sendToApproval()">Send til draft</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status != 0" ng-click="sendToDraft()">Send til draft</button>
                                         <button type="button" class="btn btn-warning" ng-click="discardChanges()" ng-if="editing && !complaintReportFormatted.SentToApproval">Forkast endringer</button>
                                         <button type="button" class="btn btn-danger" ng-click="delete()" ng-if="editing">Slett rapport</button>
                                         <button type="button" class="btn btn-success" ng-click="approve()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 3 )">Godkjenn</button>
                                         <button type="button" class="btn btn-danger" ng-click="deny()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 2) ">Avslå</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
-                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="!editing && !complaintReportFormatted.SentToApproval">Rediger</button>
+                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="canEdit() && !editing">Rediger</button>
                                         <p class="alert-danger">{{error}}</p>
                                         <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
