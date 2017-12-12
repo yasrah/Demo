@@ -38,7 +38,12 @@ namespace Demo.Web.Controllers
         [HttpPost]
         public ActionResult Email(ForgotenPasswordViewModel model)
         {
-
+            //TODO: følgende er nødvedig for å validere model og evt vise melding.
+            //    Akkurat nå feiler Send nytt pasord hvis epost ikke utfylt.
+            //if (model sin Email property IKKE er utfylt)
+            //{
+            //    return samme side som bruekren er på og vis en melding met TempData["msg"] osv.
+            //}
             String username =  Membership.GetUserNameByEmail(model.Email);
                 MembershipUser user = Membership.GetUser(username);
 
