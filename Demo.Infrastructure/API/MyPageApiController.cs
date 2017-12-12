@@ -19,7 +19,7 @@ using Umbraco.Web.WebApi;
 
 namespace Demo.API
 {
-    [MemberAuthorize]
+    [MemberAuthorize]       
     public class MyPageApiController : UmbracoApiController // UmbracoAuthorizedApiController
     {
         readonly DealerNetworkContext ctx = new DealerNetworkContext();
@@ -28,6 +28,7 @@ namespace Demo.API
         //http://local.demo.no/umbraco/api/mypageapi/getmypagedata
         public MyPageViewModel GetMyPageData()
         {
+
             //System.Threading.Thread.Sleep(1000);
             var currentMember = myPageRepo.GetCurrentMember();
             var obj = new MyPageViewModel(currentMember);

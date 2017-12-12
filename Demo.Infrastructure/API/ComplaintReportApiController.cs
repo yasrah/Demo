@@ -383,7 +383,9 @@ namespace Demo.API
 
             //order7
             var dir = data.order.First().dir.ToString();
-            switch (data.order.First().column.ToString())
+            var col = data.order.First().column.ToString();
+
+            switch (col)
             {
                 case "0":
                     if (dir.Equals("asc"))
