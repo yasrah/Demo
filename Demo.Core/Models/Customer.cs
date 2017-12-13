@@ -13,14 +13,14 @@ namespace Demo.Core.Models
         public int CustomerId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public CustomerType CustomerType { get; set; }
+        public string CustomerType { get; set; }
         public virtual ICollection<ComplaintReport> ComplaintReports { get; set; }
     }
 
-    public enum CustomerType
+    public static class CustomerType
     {
-        Private = 1,
-        Industry = 2
+        public const string Private = "Privat";
+        public const string Industry = "Næring";
     }
 }
     

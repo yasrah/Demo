@@ -358,18 +358,18 @@
                                             <label>Checkboxes</label>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked ==1">Deler er merket og oppbevart
+                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked =='Ja'">Deler er merket og oppbevart
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned ==1">Deler er returnert etter avtale med Berema
+                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
 
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 1">Ved behov, opprett e-post for vedlegg
+                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
                                                 </label>
                                             </div>
                                         </div>
@@ -380,22 +380,22 @@
                                             <label>Status</label>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType1" value="0" ng-checked="complaintReportFormatted.Status == 0">Draft
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType1" value="Kladd" ng-checked="complaintReportFormatted.Status == 0">Kladd
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="1" ng-checked="complaintReportFormatted.Status == 1">Sendt til godkjenning
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="Sendt til godkjenning" ng-checked="complaintReportFormatted.Status == 1">Sendt til godkjenning
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="2" ng-checked="complaintReportFormatted.Status == 2">Godkjent
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="Godkjent" ng-checked="complaintReportFormatted.Status == 2">Godkjent
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="3" ng-checked="complaintReportFormatted.Status == 3">Avslått
+                                                    <input type="radio" ng-model="complaintReportFormatted.Status" name="optionsRadios" id="optionCustomerType2" value="Avslått" ng-checked="complaintReportFormatted.Status == 3">Avslått
                                                 </label>
                                             </div>
                                         </div>

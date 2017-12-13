@@ -76,11 +76,11 @@ namespace Demo.Infrastructure
         [Required]
         public string ReasonForError { get; set; }
 
-        public bool PartsMarked { get; set; }
+        public string PartsMarked { get; set; }
 
-        public bool PartsReturned { get; set; }
+        public string PartsReturned { get; set; }
 
-        public bool CreateEmail { get; set; }
+        public string CreateEmail { get; set; }
 
         [EnsureMinimumElements(1, ErrorMessage = "Deler: Minst en del må oppgis.")]
         public List<PartViewModel> Parts { get; set; }

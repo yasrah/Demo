@@ -62,7 +62,7 @@
             $scope.changeEditMode();
             ComplaintReportFactory.SendToApproval($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReport.Status = 1;
+                    $scope.complaintReport.Status = 'Sent til godkjenning';
                     updateModel();
                 },
                 function error(response) {
@@ -77,7 +77,7 @@
             $scope.changeEditMode();
             ComplaintReportFactory.Approve($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReport.Status = 2;
+                    $scope.complaintReport.Status = 'Godkjent';
                     updateModel();
                 },
                 function error(response) {
@@ -92,7 +92,7 @@
             $scope.changeEditMode();
             ComplaintReportFactory.Deny($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReport.Status = 3;
+                    $scope.complaintReport.Status = 'Avslått';
                     updateModel();
                 },
                 function error(response) {
@@ -165,9 +165,9 @@
         RepairDate: null,
         Error: null,
         ReasonForError: null,
-        PartsMarked: false,
-        PartsReturned: false,
-        CreateEmail: false,
+        PartsMarked: 'Nei',
+        PartsReturned: 'Nei',
+        CreateEmail: 'Nei',
         Status: null,
         Closed: false,
         ProductModels: null,
