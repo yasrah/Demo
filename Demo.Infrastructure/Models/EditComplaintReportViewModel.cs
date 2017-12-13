@@ -27,13 +27,13 @@ namespace Demo.Infrastructure.Models
         public CustomerViewModel Customer { get; set; }
         public int CustomerId { get; set; }
         public int ProductModel { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
         public bool Closed { get; set; }
         public string Error { get; set; }
         public string ReasonForError { get; set; }
-        public bool PartsMarked { get; set; }
-        public bool PartsReturned { get; set; }
-        public bool CreateEmail { get; set; }
+        public string PartsMarked { get; set; }
+        public string PartsReturned { get; set; }
+        public string CreateEmail { get; set; }
         public List<PartViewModel> Parts { get; set; }
         public bool SentToApproval { get; set; }
 

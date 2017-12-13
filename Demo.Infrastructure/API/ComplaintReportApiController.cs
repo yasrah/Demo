@@ -6,6 +6,7 @@ using Demo.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -81,7 +82,7 @@ namespace Demo.API
             {
                 Name = model.Customer.Name,
                 Address = model.Customer.Address,
-                CustomerType = (CustomerType)model.Customer.CustomerType
+                CustomerType = model.Customer.CustomerType
             };
             var newCreatedCustomer = ctx.Customers.Add(newCustomer);
             ctx.SaveChanges();
@@ -312,14 +313,14 @@ namespace Demo.API
             report.PartsMarked = model.PartsMarked;
             report.PartsReturned = model.PartsReturned;
             report.CreateEmail = model.CreateEmail;
-            report.Status = (Status)model.Status;
+            report.Status = model.Status;
             report.Closed = model.Closed;
             report.LastEditedByDealerId = memberRepo.GetCurrentMemberId();
 
             // Update Customer
             report.Customer.Name = model.Customer.Name;
             report.Customer.Address = model.Customer.Address;
-            report.Customer.CustomerType = (CustomerType)model.Customer.CustomerType;
+            report.Customer.CustomerType = model.Customer.CustomerType;
 
             var updatedReport = ctx.ComplaintReports.Attach(report);
             ctx.Entry(report).State = EntityState.Modified;
@@ -345,6 +346,12 @@ namespace Demo.API
                 .Include(cr => cr.ProductModel)
                 .Include(n => n.ProductModel.Product)
                 .Include(n => n.ComplaintReportParts.Select(crp => crp.Part));
+            //.Join(
+            //    members,
+            //    cr => cr.MemberId,
+            //    m => m.DealerId,
+            //    (cr, m) => new { Reports = cr, Member = m }
+            //);
 
             if (!memberRepo.IsCurrentMemberAdmin())
             {
@@ -352,16 +359,33 @@ namespace Demo.API
                 reports = reports.Where(r => r.MemberId == id);
             }
 
-            
 
+            var list = new List<ComplaintReport>();
             IEnumerable<ExistingComplaintReportViewModel> reportsViewMOdel = null;
             if (data.search != null & data.search.value != null & data.search.value != "")
             {
-                string search = data.search.value;
+
+                string search = data.search.value.ToLower();
+
+                var members = memberRepo.GetAllMembers();
+                var members2 = members.Select(m => new MyPageViewModel(m));
+                var memberIds = members.Where(m => new MyPageViewModel(m).Name.ToLower().Contains(search)).Select(m => m.Id.ToString());
 
                 reports = reports.Where(
                     r => r.ComplaintReportId.ToString().Contains(search) ||
-                    r.Customer.Name.Contains(search));
+                    memberIds.Contains(r.MemberId.ToString()) ||
+                    r.Customer.Name.ToLower().Contains(search) ||
+                    r.Customer.CustomerType.ToLower().Contains(search) ||
+                    r.Customer.Address.ToLower().Contains(search));
+
+                DateTime parsedDate;
+                if (DateTime.TryParseExact(search, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    reports = reports.Where(
+                        r => DbFunctions.TruncateTime(r.SaleDate) == DbFunctions.TruncateTime(parsedDate) ||
+                        DbFunctions.TruncateTime(r.DamageDate) == parsedDate.Date ||
+                        DbFunctions.TruncateTime(r.RepairDate) == parsedDate.Date);
+                }
             }
             tot = reports.Count();
             filteredTot = reports.Count();
@@ -424,5 +448,6 @@ namespace Demo.API
             return new ComplaintReportWrapper { data = reportsViewMOdel, recordsTotal = tot, recordsFiltered = filteredTot };
 
         }
+
     }
 }

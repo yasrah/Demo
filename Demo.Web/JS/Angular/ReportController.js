@@ -1,4 +1,4 @@
-﻿app.controller("ReportController", ["$scope", "$http", "$window", "$timeout", "ReportFactory", function ($scope, $http, $window, $timeout, ReportFactory) {
+﻿app.controller("ReportController", ["$scope", "$http", "$window", "$timeout", "$filter", "ReportFactory", function ($scope, $http, $window, $timeout, $filter, ReportFactory) {
 
     // Debug
     $scope.error = null;
@@ -69,13 +69,16 @@
                     "data": "TimeAmount"
                 },
                 {
-                    "data": "SaleDate"
+                    "data": "SaleDate",
+                    render: function (d) { return $filter('date')(d, "dd.MM.yyyy");; }
                 },
                 {
-                    "data": "DamageDate"
+                    "data": "DamageDate",
+                    render: function (d) { return $filter('date')(d, "dd.MM.yyyy");; }
                 },
                 {
-                    "data": "RepairDate"
+                    "data": "RepairDate",
+                    render: function (d) { return $filter('date')(d, "dd.MM.yyyy");; }
                 },
                 {
                     "data": "Error"

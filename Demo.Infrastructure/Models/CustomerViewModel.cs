@@ -22,7 +22,8 @@ namespace Demo.Infrastructure
         [Required]
         public string Address { get; set; }
 
-        [Range(1, 2, ErrorMessage = "CustomerType må velges.")]
-        public int CustomerType { get; set; }
+        [Required]
+        //[Range(1, 2, ErrorMessage = "CustomerType må velges.")]
+        public string CustomerType { get; set; }
     }
 }

@@ -79,6 +79,14 @@
     <Compile Include="Migrations\201712112220555_YaserAddedNyPropTpPart.Designer.cs">
       <DependentUpon>201712112220555_YaserAddedNyPropTpPart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712121050234_AddDateTimeFormatSaleDate.cs" />
+    <Compile Include="Migrations\201712121050234_AddDateTimeFormatSaleDate.Designer.cs">
+      <DependentUpon>201712121050234_AddDateTimeFormatSaleDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712121837190_ChangeEnumStatusToClass.cs" />
+    <Compile Include="Migrations\201712121837190_ChangeEnumStatusToClass.Designer.cs">
+      <DependentUpon>201712121837190_ChangeEnumStatusToClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComplaintReportWrapper.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
@@ -124,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712112220555_YaserAddedNyPropTpPart.resx">
       <DependentUpon>201712112220555_YaserAddedNyPropTpPart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121050234_AddDateTimeFormatSaleDate.resx">
+      <DependentUpon>201712121050234_AddDateTimeFormatSaleDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121837190_ChangeEnumStatusToClass.resx">
+      <DependentUpon>201712121837190_ChangeEnumStatusToClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

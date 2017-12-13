@@ -7,6 +7,7 @@ using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Umbraco.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace Demo.Infrastructure
 {
@@ -32,19 +33,19 @@ namespace Demo.Infrastructure
                 CustomerId = c.Customer.CustomerId,
                 Name = c.Customer.Name,
                 Address = c.Customer.Address,
-                CustomerType = (int)c.Customer.CustomerType
+                CustomerType = c.Customer.CustomerType
 
             };
 
             var memberShipHelper = new Umbraco.Web.Security.MembershipHelper(Umbraco.Web.UmbracoContext.Current);
             var memberId = memberShipHelper.GetCurrentMemberId();
             var memberService = ApplicationContext.Current.Services.MemberService;
-            var m = memberService.GetById(memberId);
+            var m = memberService.GetById(c.MemberId);
             Dealer = new DealerViewModel(m);
 
             Product = new ProductViewModel(c.ProductModel.Product);
             ProductModel = new ProductModelViewModel(c.ProductModel);
-            Status = (int?)c.Status;
+            Status = c.Status;
 
             SelectedProduct = c.ProductModel.ProductId;
             SelectedProductModel = c.ProductModelId;
@@ -87,6 +88,7 @@ namespace Demo.Infrastructure
         public string MachineNo1 { get; set; }
         public string MachineNo2 { get; set; }
         public int DealerId { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime SaleDate { get; set; }
         public DateTime DamageDate { get; set; }
         public DateTime RepairDate { get; set; }
@@ -99,13 +101,13 @@ namespace Demo.Infrastructure
         public ProductModelViewModel ProductModel { get; set; }
         public int SelectedProduct { get; set; }
         public int SelectedProductModel { get; set; }
-        public int? Status { get; set; }
+        public string Status { get; set; }
         public bool Closed { get; set; }
         public string Error { get; set; }
         public string ReasonForError { get; set; }
-        public bool PartsMarked { get; set; }
-        public bool PartsReturned { get; set; }
-        public bool CreateEmail { get; set; }
+        public string PartsMarked { get; set; }
+        public string PartsReturned { get; set; }
+        public string CreateEmail { get; set; }
 
         public List<ProductViewModel> Products { get; set; }
         public List<ProductModelViewModel> ProductModels { get; set; }
