@@ -86,9 +86,9 @@
         RepairDate: '',
         Error: '',
         ReasonForError: '',
-        PartsMarked: false,
-        PartsReturned: false,
-        CreateEmail: false,
+        PartsMarked: "Nei",
+        PartsReturned: "Nei",
+        CreateEmail: "Nei",
         Parts: []
     }
 

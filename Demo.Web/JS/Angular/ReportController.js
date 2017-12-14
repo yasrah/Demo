@@ -87,13 +87,37 @@
                     "data": "ReasonForError"
                 },
                 {
-                    "data": "PartsMarked"
+                    "data": "PartsMarked",
+                    render: function (d) {
+                        if (d==1) {
+                            return "Ja";
+                        }
+                        else {
+                            return "Nei"
+                        }
+                    }
                 },
                 {
-                    "data": "PartsReturned"
+                    "data": "PartsReturned",
+                    render: function (d) {
+                        if (d == 1) {
+                            return "Ja";
+                        }
+                        else {
+                            return "Nei"
+                        }
+                    }
                 },
                 {
-                    "data": "CreateEmail"
+                    "data": "CreateEmail",
+                    render: function (d) {
+                        if (d == 1) {
+                            return "Ja";
+                        }
+                        else {
+                            return "Nei"
+                        }
+                    }
                 },
                 {
                     "data": "Status"

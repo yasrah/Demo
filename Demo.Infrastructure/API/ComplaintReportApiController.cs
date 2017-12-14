@@ -342,6 +342,7 @@ namespace Demo.API
             int filteredTot = 0;
 
             var reports = ctx.ComplaintReports
+                .Join(ctx.ProductModels, r => r.ProductModelId, pm => pm.ProductModelId, (r, pm) => r)
                 .Include(cr => cr.Customer)
                 .Include(cr => cr.ProductModel)
                 .Include(n => n.ProductModel.Product)
@@ -368,14 +369,16 @@ namespace Demo.API
                 string search = data.search.value.ToLower();
 
                 var members = memberRepo.GetAllMembers();
-                var members2 = members.Select(m => new MyPageViewModel(m));
+                //var members2 = members.Select(m => new MyPageViewModel(m));
                 var memberIds = members.Where(m => new MyPageViewModel(m).Name.ToLower().Contains(search)).Select(m => m.Id.ToString());
 
-                reports = reports.Where(
-                    r => r.ComplaintReportId.ToString().Contains(search) ||
+                reports = reports
+                    .Where(r => r.ComplaintReportId.ToString().Contains(search) ||
                     memberIds.Contains(r.MemberId.ToString()) ||
                     r.Customer.Name.ToLower().Contains(search) ||
                     r.Customer.CustomerType.ToLower().Contains(search) ||
+                    r.ProductModel.Name.ToLower().Contains(search) ||
+                    r.ProductModel.Product.Name.ToLower().Contains(search) ||
                     r.Customer.Address.ToLower().Contains(search));
 
                 DateTime parsedDate;

@@ -62,7 +62,7 @@
             $scope.changeEditMode();
             ComplaintReportFactory.SendToApproval($scope.complaintReportFormatted.ComplaintReportId).then(
                 function success(response) {
-                    $scope.complaintReport.Status = 'Sent til godkjenning';
+                    $scope.complaintReport.Status = 'Sendt til godkjenning';
                     updateModel();
                 },
                 function error(response) {

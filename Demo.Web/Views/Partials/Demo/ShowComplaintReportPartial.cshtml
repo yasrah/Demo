@@ -358,18 +358,18 @@
                                             <label>Checkboxes</label>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked =='Ja'">Deler er merket og oppbevart
+                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked =='Ja'">Deler er merket og oppbevart
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
+                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
 
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
+                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
                                                 </label>
                                             </div>
                                         </div>
@@ -410,12 +410,12 @@
                                     </fieldset>
                                     <fieldset>
                                         <button type="submit" class="btn btn-success" ng-if="editing">Lagre</button>
-                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status == 0" ng-click="sendToApproval()">Send til godkjenning</button>
-                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status != 0" ng-click="sendToDraft()">Send til draft</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status == 'Kladd'" ng-click="sendToApproval()">Send til godkjenning</button>
+                                        <button type="button" class="btn btn-info" ng-if="editing && complaintReportFormatted.Status != 'Kladd'" ng-click="sendToDraft()">Send til draft</button>
                                         <button type="button" class="btn btn-warning" ng-click="discardChanges()" ng-if="editing && !complaintReportFormatted.SentToApproval">Forkast endringer</button>
                                         <button type="button" class="btn btn-danger" ng-click="delete()" ng-if="editing">Slett rapport</button>
-                                        <button type="button" class="btn btn-success" ng-click="approve()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 3 )">Godkjenn</button>
-                                        <button type="button" class="btn btn-danger" ng-click="deny()" ng-if="editing && (complaintReportFormatted.Status == 1 || complaintReportFormatted.Status == 2) ">Avslå</button>
+                                        <button type="button" class="btn btn-success" ng-click="approve()" ng-if="editing && (complaintReportFormatted.Status == 'Sendt til godkjenning' || complaintReportFormatted.Status == 'Avslått' )">Godkjenn</button>
+                                        <button type="button" class="btn btn-danger" ng-click="deny()" ng-if="editing && (complaintReportFormatted.Status == 'Sendt til godkjenning' || complaintReportFormatted.Status == 'Godkjent') ">Avslå</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
                                         <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="canEdit() && !editing">Rediger</button>
                                         <p class="alert-danger">{{error}}</p>

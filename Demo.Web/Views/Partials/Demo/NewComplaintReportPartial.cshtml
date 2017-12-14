@@ -340,18 +340,18 @@
                                             <label>Checkboxes</label>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="newComplaintReport.PartsMarked" ng-checked="newComplaintReport.PartsMarked ==1">Deler er merket og oppbevart
+                                                    <input type="checkbox" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="newComplaintReport.PartsMarked" ng-checked="newComplaintReport.PartsMarked =='Ja'">Deler er merket og oppbevart
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="newComplaintReport.PartsReturned" ng-checked="newComplaintReport.PartsReturned ==1">Deler er returnert etter avtale med Berema
+                                                    <input type="checkbox" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="newComplaintReport.PartsReturned" ng-checked="newComplaintReport.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
 
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="" ng-model="newComplaintReport.CreateEmail" ng-checked="newComplaintReport.CreateEmail == 1">Ved behov, opprett e-post for vedlegg
+                                                    <input type="checkbox" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="newComplaintReport.CreateEmail" ng-checked="newComplaintReport.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
                                                 </label>
                                             </div>
                                         </div>
