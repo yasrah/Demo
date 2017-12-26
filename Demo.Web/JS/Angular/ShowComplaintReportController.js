@@ -30,7 +30,7 @@
             $scope.editing = !$scope.editing;
 
         } else {
-            if ($scope.complaintReportFormatted.Status == 0) {
+            if ($scope.complaintReportFormatted.Status == 'Kladd') {
                 $scope.editing = !$scope.editing;
             }
         }
@@ -49,7 +49,7 @@
 
     $scope.canEdit = function () {
 
-        return $scope.currentDealerData.IsAdmin || ($scope.complaintReportFormatted.Status == 0);
+        return $scope.currentDealerData.IsAdmin || ($scope.complaintReportFormatted.Status == 'Kladd');
     }
 
     $scope.discardChanges = function () {

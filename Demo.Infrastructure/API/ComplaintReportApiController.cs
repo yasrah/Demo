@@ -452,5 +452,67 @@ namespace Demo.API
 
         }
 
+
+        public ComplaintReportsDashboardData GetComplaintReportsDashboardData()
+        {
+            var data = new ComplaintReportsDashboardData()
+            {
+                DraftReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Kladd")),
+                SentToApprovalTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Sendt til godkjenning")),
+                ApprovedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Godkjent")),
+                DeclinedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Avslått")),
+            };
+            data.TotalReports = data.DraftReportsTotal + data.SentToApprovalTotal + data.ApprovedReportsTotal + data.DeclinedReportsTotal;
+            return data;
+        }
+
+        public List<ComplaintReportsDashboardDonutVM> GetComplaintReportsDashboardDataForDonutChart()
+        {
+            //var data = new ComplaintReportsDashboardDonutVM()
+            //{
+            //    DraftReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Kladd")),
+            //    SentToApprovalTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Sendt til godkjenning")),
+            //    ApprovedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Godkjent")),
+            //    DeclinedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Avslått")),
+            //};
+            //data.TotalReports = data.DraftReportsTotal + data.SentToApprovalTotal + data.ApprovedReportsTotal + data.DeclinedReportsTotal;
+            //return data;
+            return new List<ComplaintReportsDashboardDonutVM>()
+            {
+                new ComplaintReportsDashboardDonutVM()
+                {
+                    Label = "Til godkjenning",
+                    Value = 10
+                },
+                new ComplaintReportsDashboardDonutVM()
+                {
+                    Label = "Godkjent",
+                    Value = 11
+                },
+                new ComplaintReportsDashboardDonutVM()
+                {
+                    Label = "Avslått",
+                    Value = 12
+                }
+            };
+        }
+
+        public List<ChartViewModel> GetComplaintReportsDashboardChart()
+        {
+            var res = ctx.ComplaintReports.GroupBy(cr => DbFunctions.TruncateTime(cr.CreatedByDealerDate)).ToList().Select(a => new ChartViewModel()
+            {
+                Period = ((DateTime)a.Key).ToString("dd.MM.yyyy"),
+                Count = a.Count()
+            });
+
+            return res.ToList();
+            //return new List<ChartViewModel>(){
+            //    new ChartViewModel() { Period = "2011.11.11", Itouch = 2100, Ipad = 2510, Iphone= 3100},
+            //    new ChartViewModel() { Period = "2012.12.02", Itouch = 2200, Ipad = 1000, Iphone= 3200},
+            //    new ChartViewModel() { Period = "2013.06.03", Itouch = 2300, Ipad = 2530, Iphone= 3300},
+            //    new ChartViewModel() { Period = "2014.09.04", Itouch = 2400, Ipad = 3000, Iphone= 3400},
+            //    new ChartViewModel() { Period = "2015.04.05", Itouch = 2500, Ipad = 1500, Iphone= 3500}'
+            //};
+        }
     }
 }

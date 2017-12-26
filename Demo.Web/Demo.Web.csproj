@@ -447,6 +447,7 @@
     <Content Include="Views\NewPasswordPage.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="uSync\data\DocumentType\demo\newpasswordpage\def.config" />
+    <Content Include="Views\Partials\Demo\ComplaintReportDashboardPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

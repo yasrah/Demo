@@ -1,7 +1,17 @@
 ﻿app.factory("ComplaintReportFactory", ["$http", function ($http) {
     return {
-        GetReportsCount: function () {
-            return $http.get("/umbraco/api/dealer/getreportscount").then(function (response) {
+        GetComplaintReportsDashboardData: function () {
+            return $http.get("/umbraco/api/complaintreportapi/GetComplaintReportsDashboardData").then(function (response) {
+                return response;
+            });
+        },
+        GetComplaintReportsDashboardChart: function () {
+            return $http.get("/umbraco/api/complaintreportapi/GetComplaintReportsDashboardChart").then(function (response) {
+                return response;
+            });
+        },
+        GetComplaintReportsDashboardDataForDonutChart: function () {
+            return $http.get("/umbraco/api/complaintreportapi/GetComplaintReportsDashboardDataForDonutChart").then(function (response) {
                 return response;
             });
         },

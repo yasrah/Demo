@@ -39,6 +39,11 @@ namespace Demo.Web.Controllers
 
         }
 
+        public ActionResult ShowComplaintReportDashboard()
+        {
+            return PartialView("~/Views/Partials/Demo/ComplaintReportDashboardPartial.cshtml");
+        }
+
 
     }
 }

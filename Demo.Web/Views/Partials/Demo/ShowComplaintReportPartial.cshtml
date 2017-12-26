@@ -1,14 +1,16 @@
 ﻿@model string
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Vis/Rediger reklamasjonsrapport</h1>
+        <h2 class="page-header">Vis/Rediger reklamasjonsrapport</h2>
     </div>
 </div>
 @*<pre>@Model</pre>*@
 <div class="row" ng-controller="ShowComplaintReportController" ng-init="init(@Model)" ng-cloak>
-    {{complaintReport}}
-    <hr />
-    {{complaintReportFormatted}}
+    @*{{complaintReport}}*@
+    @*<hr />
+    {{complaintReportFormatted}}*@
+
+    @*<pre>currentDealerData: {{currentDealerData}}</pre>*@
     <div class="col-lg-12">
         @*<div class="panel panel-info">
                 <div class="panel-heading">
@@ -358,18 +360,18 @@
                                             <label>Checkboxes</label>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked =='Ja'">Deler er merket og oppbevart
+                                                    <input type="checkbox" value="Ja" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="complaintReportFormatted.PartsMarked" ng-checked="complaintReportFormatted.PartsMarked =='Ja'">Deler er merket og oppbevart
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
+                                                    <input type="checkbox" value="Ja" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="complaintReportFormatted.PartsReturned" ng-checked="complaintReportFormatted.PartsReturned =='Ja'">Deler er returnert etter avtale med Berema
 
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="Ja" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
+                                                    <input type="checkbox" value="Ja" data-ng-true-value="'Ja'" data-ng-false-value="'Nei'" ng-model="complaintReportFormatted.CreateEmail" ng-checked="complaintReportFormatted.CreateEmail == 'Ja'">Ved behov, opprett e-post for vedlegg
                                                 </label>
                                             </div>
                                         </div>
@@ -417,7 +419,7 @@
                                         <button type="button" class="btn btn-success" ng-click="approve()" ng-if="editing && (complaintReportFormatted.Status == 'Sendt til godkjenning' || complaintReportFormatted.Status == 'Avslått' )">Godkjenn</button>
                                         <button type="button" class="btn btn-danger" ng-click="deny()" ng-if="editing && (complaintReportFormatted.Status == 'Sendt til godkjenning' || complaintReportFormatted.Status == 'Godkjent') ">Avslå</button>
                                         @*<button type="submit" class="btn btn-warning">Send til behandler</button>*@
-                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="canEdit() && !editing">Rediger</button>
+                                        <button type="button" class="btn btn-info" ng-click="changeEditMode()" ng-if="(currentDealerData.IsAdmin || complaintReportFormatted.Status == 'Kladd') && !editing">Rediger</button>
                                         <p class="alert-danger">{{error}}</p>
                                         <div class="alert alert-success alert-dismissable" ng-show="success" style="transition: all linear 0.5s;">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
