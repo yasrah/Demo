@@ -30,8 +30,8 @@
                     value: $scope.complaintReportsDashboardData.DeclinedReportsTotal
                 }
                 , {
-                    label: "Totalt",
-                    value: $scope.complaintReportsDashboardData.TotalReports
+                    label: "Kladd",
+                    value: $scope.complaintReportsDashboardData.DraftReportsTotal
                 }
             ],
             colors: ['#f0ad4e', '#5cb85c', '#d9534f', '#337ab7'],
