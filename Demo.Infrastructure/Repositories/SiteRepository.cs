@@ -3,6 +3,8 @@ using System.Linq;
 using Umbraco.Core.Models;
 using Demo.Infrastructure.Constants;
 using Umbraco.Web;
+using Demo.Infrastructure.Models;
+using Demo.Core.Models.ModelsBuilder;
 
 namespace Demo.Infrastructure.Repositories
 {
@@ -27,6 +29,22 @@ namespace Demo.Infrastructure.Repositories
             }
         }
 
+        public static List<StoreAndProfileMaterialsVM> StoreAndProfileMaterials
+        {
+            get
+            {
+                var f = DealerHome.FirstChild<StoreAndProfileMaterialsPage>() as StoreAndProfileMaterialsPage;
+                var c = f.Children<StoreAndProfileProduct>().Select(m => new StoreAndProfileMaterialsVM()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Price = m.Price,
+                    Description = m.Description.ToString(),
+                    Size = m.Size
+                }).ToList();
+                return c;
+            }
+        }
 
         //public static Home Home
         //{

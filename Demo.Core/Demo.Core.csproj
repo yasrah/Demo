@@ -33,17 +33,47 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="umbraco">
+      <HintPath>..\Libs\umbraco.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Core">
+      <HintPath>..\Libs\Umbraco.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.ModelsBuilder">
+      <HintPath>..\Libs\Umbraco.ModelsBuilder.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ComplaintReport.cs" />
     <Compile Include="Models\ComplaintReportPart.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\ModelsBuilder\ComplaintReports.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\DashboardComplaintReports.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\DealerHomePage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\DealerMaster.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\EditMyPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\File.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\Folder.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\HideInNavDT.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\Image.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\LoginPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\Member.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\MyPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\NewComplaintReport.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\NewPasswordPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\NoAccess.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\NotFound.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\SearchComplaintReportsPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\ShowComplaintReport.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\StoreAndProfileMaterialsPage.generated.cs" />
+    <Compile Include="Models\ModelsBuilder\StoreAndProfileProduct.generated.cs" />
     <Compile Include="Models\Part.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductModel.cs" />

@@ -236,6 +236,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
+    <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
@@ -256,6 +258,10 @@
     <Content Include="JS\Angular\app.js" />
     <Content Include="JS\Angular\ChartController.js" />
     <Content Include="JS\Angular\ChartFactory.js" />
+    <Content Include="JS\Angular\MaterialsCartController.js" />
+    <Content Include="JS\Angular\SharedVarFactory.js" />
+    <Content Include="JS\Angular\StoreAndProfileMaterialsFactory.js" />
+    <Content Include="JS\Angular\StoreAndProfileMaterialsController.js" />
     <Content Include="JS\Angular\ComplaintReportController.js" />
     <Content Include="JS\Angular\ComplaintReportEditController.js" />
     <Content Include="JS\Angular\ComplaintReportEditFactory.js" />
@@ -345,6 +351,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -448,6 +455,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="uSync\data\DocumentType\demo\newpasswordpage\def.config" />
     <Content Include="Views\Partials\Demo\ComplaintReportDashboardPartial.cshtml" />
+    <Content Include="Views\NotFound.cshtml" />
+    <Content Include="500.html" />
+    <Content Include="Views\StoreAndProfileMaterialsPage.cshtml" />
+    <Content Include="Views\Partials\Demo\StoreAndProfileMaterialsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

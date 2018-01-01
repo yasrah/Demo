@@ -39,9 +39,12 @@
         });
     }
 
-    ComplaintReportFactory.GetComplaintReportsDashboardData().then(function (data) {
+    ComplaintReportFactory.GetComplaintReportsDashboardData().then(function success(data) {
+        $scope.chartDataError = false;
         $scope.complaintReportsDashboardData = data.data;
         loadDonutChart();
+    }, function error(response) {
+        $scope.chartDataError = true;
     });
 
     ComplaintReportFactory.GetComplaintReportsDashboardChart().then(function (data) {

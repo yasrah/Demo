@@ -15,6 +15,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Services;
@@ -453,17 +454,18 @@ namespace Demo.API
         }
 
 
-        public ComplaintReportsDashboardData GetComplaintReportsDashboardData()
+        public HttpResponseMessage GetComplaintReportsDashboardData()
         {
-            var data = new ComplaintReportsDashboardData()
+            var data = complaintReportRepo.GetDashboradData();
+            if (data == null)
             {
-                DraftReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Kladd")),
-                SentToApprovalTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Sendt til godkjenning")),
-                ApprovedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Godkjent")),
-                DeclinedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Avslått")),
-            };
-            data.TotalReports = data.DraftReportsTotal + data.SentToApprovalTotal + data.ApprovedReportsTotal + data.DeclinedReportsTotal;
-            return data;
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Something went wrong getting chart data from repository.")
+                };
+            }
+            var response = Request.CreateResponse(HttpStatusCode.OK, data);
+            return response;
         }
 
         public List<ComplaintReportsDashboardDonutVM> GetComplaintReportsDashboardDataForDonutChart()

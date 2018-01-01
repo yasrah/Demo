@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using Umbraco.Core.Logging;
 
 namespace Demo.Infrastructure.Repositories
 {
@@ -70,6 +71,29 @@ namespace Demo.Infrastructure.Repositories
             var updatedReport = ctx.ComplaintReports.Attach(report);
             ctx.Entry(report).State = EntityState.Modified;
             return ctx.SaveChanges();
+        }
+
+        public ComplaintReportsDashboardData GetDashboradData()
+        {
+            try
+            {
+                //var z = 0;
+                //var op = 1 / z;
+                var data = new ComplaintReportsDashboardData()
+                {
+                    DraftReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Kladd")),
+                    SentToApprovalTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Sendt til godkjenning")),
+                    ApprovedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Godkjent")),
+                    DeclinedReportsTotal = ctx.ComplaintReports.Count(cr => cr.Status.Equals("Avslått")),
+                };
+                data.TotalReports = data.DraftReportsTotal + data.SentToApprovalTotal + data.ApprovedReportsTotal + data.DeclinedReportsTotal;
+                return data;
+            }
+            catch (Exception x)
+            {
+                LogHelper.Error(typeof(ComplaintReportRepository), "", x);
+                return null;
+            }
         }
 
         public ExistingComplaintReportViewModel GetComplaintReportById(int reportId, bool isAdmin = false)

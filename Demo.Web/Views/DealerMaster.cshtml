@@ -1,8 +1,8 @@
 ﻿@*@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.DealerMaster>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
-@{
-	Layout = null;
-}*@   
+    @using ContentModels = Umbraco.Web.PublishedContentModels;
+    @{
+        Layout = null;
+    }*@
 
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @using Demo.Infrastructure.Repositories
@@ -36,6 +36,8 @@
     <link href="~/Assets/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/Custom_CSS/style.css" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-notification/0.3.6/angular-ui-notification.min.css" rel="stylesheet">
+
 
     <!-- Custom Fonts -->
     <link href="~/Assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,7 +67,72 @@
                 <a class="navbar-brand" href="/">Forhandlernettet</a>
             </div>
             <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right" ng-controller="MaterialsCartController" ng-cloak>
+                <li class="dropdown" ng-if="order.list.length > 0">
+                    <a class="dropdown-toggle text-danger alert-danger" data-toggle="dropdown" href="#" aria-expanded="false">
+                        Delebestilling<i class="fa fa-shopping-cart fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <div class="panel-body">
+                            <div class="table-responsives">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Vare</th>
+                                            <th>Enhetspris</th>
+                                            <th>Totalt</th>
+                                            <th>Slett</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in order.list">
+                                            <td>{{item.name}} ({{item.size}}) X {{item.amount}}</td>
+                                            <td>{{item.price}}</td>
+                                            <td>{{item.totalPrice}}</td>
+                                            <td><input type="button" id="remove-item" class="form-control btn-xs" value="Slett" ng-click="remove($event, item)" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                Sum
+                                            </td>
+                                            <td>
+                                                {{order.sum}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+
+                        @*<li ng-repeat="item in value">
+                                <div class="col-sm-12  well">
+                                    <div>
+                                        <strong>{{item.name}} </strong>
+                                        <span class="pull-right text-muted">
+                                            <em>{{item.totalPrice}}</em>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>Antall: {{item.amount}}</span>
+                                        <span ng-if="item.size">Størrelse: {{item.size}}</span>
+                                        <span>
+                                            <input type="button" id="remove-item" class="pull-right" value="Slett" ng-click="remove($event, item)" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>*@
+                        <li class="divider"></li>
+                        <li>
+                            <div class="col-sm-12 text-center">
+                                <input type="button" class="btn btn-primary form-control" value="Til bestilling" data-toggle="modal" data-target="#myModal">
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -87,11 +154,13 @@
                 </li>
                 <!-- /.dropdown -->
             </ul>
+
             <!-- /.navbar-top-links -->
             @Html.Action("ShowLeftMenu", "Navigation")
             <!-- /.navbar-static-side -->
         </nav>
         <div id="page-wrapper">
+
             @RenderBody()
             <!-- /.row -->
         </div>
@@ -110,7 +179,7 @@
     @*<script src="~/Assets/data/morris-data.js"></script>*@
     <!-- Custom Theme JavaScript -->
     <script src="~/Assets/dist/js/sb-admin-2.js"></script>
-    
+
     <script src="~/JS/Angular/app.js"></script>
     <script src="~/JS/Angular/MyPageFactory.js"></script>
     <script src="~/JS/Angular/MyPageController.js"></script>
@@ -128,6 +197,10 @@
     <script src="~/JS/Angular/ComplaintReportShowFactory.js"></script>
     <script src="~/JS/Angular/NewComplaintReportController.js"></script>
     <script src="~/JS/Angular/ShowComplaintReportController.js"></script>
+    <script src="~/JS/Angular/StoreAndProfileMaterialsFactory.js"></script>
+    <script src="~/JS/Angular/StoreAndProfileMaterialsController.js"></script>
+    <script src="~/JS/Angular/SharedVarFactory.js"></script>
+    <script src="~/JS/Angular/MaterialsCartController.js"></script>
 
     <!-- DataTables JavaScript -->
     <script src="~/Assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -140,6 +213,9 @@
             //        responsive: true
             //    });
             //});
+        // popover demo
+        //$("[data-toggle=popover]")
+        //    .popover()
     </script>
 
 
@@ -159,10 +235,13 @@
 
     @*<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />*@
     <script type='text/javascript' src='~/JS/AngularLoadingBar/loading-bar.min.js'></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js" ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-sanitize.min.js"></script>
+
     <script src="~/JS/TypeAhead/jquery.typeahead.min.js"></script>
     @*<script src="~/Js/UiBootstrap/ui-bootstrap-2.5.0.min.js"></script>*@
     <script src="~/JS/UiBootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.16/dataRender/datetime.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-notification/0.3.6/angular-ui-notification.min.js"></script>
 </body>
 </html>
