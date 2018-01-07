@@ -11,7 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Infrastructure", "Demo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5CDDB1AE-AFDC-4E40-8E56-1A3E1D9C4395}"
 	ProjectSection(SolutionItems) = preProject
+		C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\Log4Net.Async.dll = C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\Log4Net.Async.dll
+		C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\Microsoft.AspNet.SignalR.Core.dll = C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\Microsoft.AspNet.SignalR.Core.dll
 		Libs\Newtonsoft.Json.dll = Libs\Newtonsoft.Json.dll
+		C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\System.Threading.Tasks.Dataflow.dll = C:\Users\ali_f\Downloads\UmbracoCms.7.7.6\bin\System.Threading.Tasks.Dataflow.dll
 		Libs\System.Web.Http.dll = Libs\System.Web.Http.dll
 		Libs\Umbraco.Core.dll = Libs\Umbraco.Core.dll
 		Libs\umbraco.dll = Libs\umbraco.dll
