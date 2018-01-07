@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201712121837190_ChangeEnumStatusToClass.Designer.cs">
       <DependentUpon>201712121837190_ChangeEnumStatusToClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801071640291_AddProductInventory.cs" />
+    <Compile Include="Migrations\201801071640291_AddProductInventory.Designer.cs">
+      <DependentUpon>201801071640291_AddProductInventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\ComplaintReportsDashboardDonutVM.cs" />
@@ -156,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712121837190_ChangeEnumStatusToClass.resx">
       <DependentUpon>201712121837190_ChangeEnumStatusToClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801071640291_AddProductInventory.resx">
+      <DependentUpon>201801071640291_AddProductInventory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

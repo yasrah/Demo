@@ -42,6 +42,7 @@ namespace Demo.Infrastructure.Repositories
             var memberRoles = System.Web.Security.Roles.GetRolesForUser(GetCurrentMemberName());
             return memberRoles.Any(r => r.Equals("Forhandlernett Admin"));
         }
+
     }
 }
 

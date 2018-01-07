@@ -24,6 +24,7 @@ namespace Demo.Infrastructure.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<ComplaintReportPart> ComplaintReportParts { get; set; }
+        public DbSet<DealerProductInventory> DealerProductInventories { get; set; }
 
         ////public DbSet<Dealer> Dealers { get; set; }
         //public DbSet<Dealer> Dealers { get; set; }

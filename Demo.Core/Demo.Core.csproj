@@ -74,6 +74,7 @@
     <Compile Include="Models\ModelsBuilder\ShowComplaintReport.generated.cs" />
     <Compile Include="Models\ModelsBuilder\StoreAndProfileMaterialsPage.generated.cs" />
     <Compile Include="Models\ModelsBuilder\StoreAndProfileProduct.generated.cs" />
+    <Compile Include="Models\DealerProductInventory.cs" />
     <Compile Include="Models\Part.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductModel.cs" />

@@ -1,4 +1,6 @@
-﻿using Demo.Infrastructure.Models;
+﻿using Demo.Core.Models;
+using Demo.Infrastructure.Context;
+using Demo.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace Demo.Infrastructure.Repositories
     {
         readonly MembershipHelper membershipHelper = new MembershipHelper(UmbracoContext.Current);
         readonly IMemberService memberService = ApplicationContext.Current.Services.MemberService;
+        readonly DealerNetworkContext ctx = new DealerNetworkContext();
 
         public IMember GetCurrentMember()
         {
@@ -27,7 +30,7 @@ namespace Demo.Infrastructure.Repositories
 
         public MyPageViewModel UpdateMyPageData(MyPageViewModel model)
         {
-            var m = GetCurrentMember() as Member ;
+            var m = GetCurrentMember() as Member;
             var member = memberService.GetById(m.Id);
 
             if (member == null)
@@ -40,6 +43,12 @@ namespace Demo.Infrastructure.Repositories
             memberService.Save(member);
 
             return model;
+        }
+
+        public List<DealerProductInventory> GetProductInventoryForCurrentMemeber()
+        {
+            var currentMemberId = GetCurrentMember().Id;
+            return ctx.DealerProductInventories.Where(dpi => dpi.DealerId == currentMemberId).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Demo.Infrastructure.Repositories;
+﻿using Demo.Core.Models;
+using Demo.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace Demo.Infrastructure.Models
             Address = m.GetValue<string>("Address");
             ContactPerson = m.GetValue<string>("ContactPerson");
             IsAdmin = new MemberRepository().IsCurrentMemberAdmin();
+            ProductInventory = new List<DealerProductInventory>();
+            var res  = new MyPageRepository().GetProductInventoryForCurrentMemeber();
+            ProductInventory = res;
         }
 
         public int Id { get; set; }
@@ -42,5 +46,6 @@ namespace Demo.Infrastructure.Models
         public string LastName { get; set; }
         public string Address { get; set; }
         public string ContactPerson { get; set; }
+        public List<DealerProductInventory> ProductInventory { get; set; }
     }
 }
